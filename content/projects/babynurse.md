@@ -1,5 +1,5 @@
 ---
-title: "Babynurse"
+title: "Baby Nurse"
 date: 2022-01-01T20:38:18+01:00
 draft: true
 ---
@@ -11,4 +11,4 @@ First Persian baby care app for Iranian mothers. This app measures baby's weight
 ---
 
 ### Privacy Policy
-Babynurse app doesn't collect any user data. All data are hosted locally on the device. The only collected data is those related to bug reporting tools. Babynurse utilizes Firebase Crashlytics for this purpose.
+Babynurse app doesn't collect any user data. All data are hosted locally on the device. The only collected data are those related to the bug reporting tools. Babynurse utilizes Firebase Crashlytics for this purpose.
