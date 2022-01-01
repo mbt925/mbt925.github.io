@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Mohsen Biglari</title>
+    <link>http://mbt925.github.io/projects/</link>
+    <description>Recent content in Projects on Mohsen Biglari</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jan 2022 20:38:18 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Babynurse</title>
+      <link>http://mbt925.github.io/projects/babynurse/</link>
+      <pubDate>Sat, 01 Jan 2022 20:38:18 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/babynurse/</guid>
+      <description>First Persian baby care app for Iranian mothers. This app measures baby&amp;rsquo;s weight, height, and every other required measurement. It also records diaper changes, breastfeedings, sleep, medications, vaccinations, diaries, bottle feedings, foods, baths, doctor visitations, activities, and teeth details. A busy mother won&amp;rsquo;t forget anything about her child because everything will be reminded to her, e.g., today is the vaccination day, or now is the time for a diaper change.</description>
+    </item>
+    
+  </channel>
+</rss>
