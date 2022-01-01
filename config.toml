@@ -1,8 +1,7 @@
 baseURL = 'http://mbt925.github.io/'
 languageCode = 'en-us'
 title = 'Mohsen Biglari'
-theme = "LoveIt"
-themesDir = "themes"
+theme = "loveit"
 
 [params]
   # LoveIt theme version
