@@ -8,6 +8,7 @@ theme = "loveit"
   version = "0.2.X"
   # site description
   description = "Mohsen Biglari's personal website"
+  logo = "images/logotrans.png"
   # site keywords
   keywords = ["Mohsen", "Biglari", "mbt925"]
   # site default theme ("light", "dark", "auto")

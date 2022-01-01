@@ -1,9 +1,1 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Mohsen Biglari</title>
-        <link>http://example.org/</link>
-        <description>Mohsen Biglari</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language>
-            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Mohsen Biglari</title><link>http://mbt925.github.io/</link><description>Mohsen Biglari's personal website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
