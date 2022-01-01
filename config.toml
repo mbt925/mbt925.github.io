@@ -2,6 +2,7 @@ baseURL = 'http://mbt925.github.io/'
 languageCode = 'en-us'
 title = 'Mohsen Biglari'
 theme = "loveit"
+publishdir = "."
 
 [params]
   # LoveIt theme version
