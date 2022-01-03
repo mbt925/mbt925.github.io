@@ -6,7 +6,16 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jan 2022 12:05:58 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 13:38:37 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chartex</title>
+      <link>http://mbt925.github.io/projects/chartex/</link>
+      <pubDate>Mon, 03 Jan 2022 13:38:37 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/chartex/</guid>
+      <description>Chartex started with just domestic flights, then extended with international flights, domestic and international hotels, trains, buses and travel insurances. It has both Android and iOS apps which are identical in terms of features. Chartex was a B2B service. So we had to prepare the apps for different businesses with different themes and requirements. We made necessary ad-hoc tools to make this process as automatic as possible. Starting from customizing the required sections (flight, hotel, etc.</description>
+    </item>
+    
     <item>
       <title>Wear Persian Calendar</title>
       <link>http://mbt925.github.io/projects/wear_persian_calendar/</link>

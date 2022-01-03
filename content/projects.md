@@ -9,3 +9,10 @@ An Android-only baby care app. With Babynurse, parents would have something clos
 
 ### ![icon](/images/wear_persian_calendar/icon.png) [Wear Persian Calendar](/projects/wear_persian_calendar)
 A compact persian calendar for Wear OS smartwatches.
+
+### ![icon](/images/yolo.png) Realtime Multi Object Detector
+A Java app which processes a 800x600 image in 8ms using a Quadro P5000 GPU. The app is developed using DeepLearning4J with transfer learning on pre-trained Tiny-YOLO v2. A custom dataset has been prepared for the system.
+
+### ![icon](/images/chartex/icon.png) [Chartex](/projects/chartex)
+An app for reservation of flights, hotels, trains, buses, and travel insurances. This massive app supports notifications, map, ads, and more. I implemented both Android and iOS apps from scratch.
+
