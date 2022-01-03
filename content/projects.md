@@ -19,3 +19,5 @@ An app for reservation of flights, hotels, trains, buses, and travel insurances.
 ### ![icon](/images/bazarkhodro/icon.png) [BazarKhodro](/projects/bazarkhodro)
 An app for buying and selling vehicles. I implemented both Android and iOS apps from scratch.
 
+### ![icon](/images/elecapps.png) ElecApps
+It's a Market for electrical apps. Something like a mini Google Playstore!
