@@ -6,7 +6,18 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jan 2022 13:38:37 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 15:22:45 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BazarKhodro</title>
+      <link>http://mbt925.github.io/projects/bazarkhodro/</link>
+      <pubDate>Mon, 03 Jan 2022 15:22:45 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/bazarkhodro/</guid>
+      <description>Using BazarKhodro, one can sell a used car, or buy one. Searching is possible using multiple filters and orderings, together with marking and adding notes to certion results. Users can be notificed based on different triggers, e.g., availability of a certain make and model, or a certain price threshold for a specific car.
+🔗 Google Play
+ Screenshots </description>
+    </item>
+    
     <item>
       <title>Chartex</title>
       <link>http://mbt925.github.io/projects/chartex/</link>

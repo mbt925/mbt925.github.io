@@ -16,3 +16,6 @@ A Java app which processes a 800x600 image in 8ms using a Quadro P5000 GPU. The 
 ### ![icon](/images/chartex/icon.png) [Chartex](/projects/chartex)
 An app for reservation of flights, hotels, trains, buses, and travel insurances. This massive app supports notifications, map, ads, and more. I implemented both Android and iOS apps from scratch.
 
+### ![icon](/images/bazarkhodro/icon.png) [BazarKhodro](/projects/bazarkhodro)
+An app for buying and selling vehicles. I implemented both Android and iOS apps from scratch.
+
