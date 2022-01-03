@@ -6,7 +6,19 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Jan 2022 20:38:18 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jan 2022 12:05:58 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wear Persian Calendar</title>
+      <link>http://mbt925.github.io/projects/wear_persian_calendar/</link>
+      <pubDate>Mon, 03 Jan 2022 12:05:58 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/wear_persian_calendar/</guid>
+      <description>Wear Persian Calendar includes a Persian calendar app, two Complications, and a Tile for Wear OS devices. Users will have an up-to-date persian calendar including holidays and events. The current date is observable via different complications or tiles.
+🔗 Google Play
+ Privacy Policy Wear Persian Calendar app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.
+ Screenshots </description>
+    </item>
+    
     <item>
       <title>Baby Nurse | مادریار</title>
       <link>http://mbt925.github.io/projects/babynurse/</link>
