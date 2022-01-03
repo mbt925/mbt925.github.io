@@ -64,24 +64,13 @@ publishdir = "."
 
 [menu]
   [[menu.main]]
-    identifier = "Academia"
-    # you can add extra information before the name (HTML format is supported), such as icons
-    pre = ""
-    # you can add extra information after the name (HTML format is supported), such as icons
-    post = ""
-    name = "Academia"
-    url = "/academia/"
-    # title will be shown when you hover on this menu link
-    title = ""
-    weight = 1
-  [[menu.main]]
     identifier = "Projects"
     pre = ""
     post = ""
     name = "Projects"
-    url = "/projects/"
+    url = "/allprojects/"
     title = ""
-    weight = 2
+    weight = 1
   [[menu.main]]
     identifier = "About"
     pre = ""
@@ -89,4 +78,4 @@ publishdir = "."
     name = "About"
     url = "/about/"
     title = ""
-    weight = 3
+    weight = 2
