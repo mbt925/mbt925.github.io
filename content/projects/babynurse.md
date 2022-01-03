@@ -14,3 +14,16 @@ First Persian baby care app for Iranian mothers. This app measures baby's weight
 
 ### Privacy Policy
 Babynurse app doesn't collect any user data. All data are hosted locally on the device. The only collected data are those related to the bug reporting tools. Babynurse utilizes Firebase Crashlytics for this purpose.
+
+---
+
+### Screenshots
+
+![screenshot1](/images/babynurse/screenshot1.png)
+![screenshot2](/images/babynurse/screenshot2.jpeg)
+![screenshot1](/images/babynurse/screenshot3.jpeg)
+![screenshot2](/images/babynurse/screenshot4.jpeg)
+![screenshot1](/images/babynurse/screenshot5.jpeg)
+![screenshot2](/images/babynurse/screenshot6.jpeg)
+![screenshot1](/images/babynurse/screenshot7.jpeg)
+![screenshot2](/images/babynurse/screenshot8.jpeg)
