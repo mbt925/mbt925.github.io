@@ -15,5 +15,5 @@ Using BazarKhodro, one can sell a used car, or buy one. Searching is possible us
 ### Screenshots
 
 ![screenshot1](/images/bazarkhodro/screenshot1.webp)
-![screenshot1](/images/bazarkhodro/screenshot2.webp)
-![screenshot1](/images/bazarkhodro/screenshot3.webp)
+![screenshot2](/images/bazarkhodro/screenshot2.webp)
+![screenshot3](/images/bazarkhodro/screenshot3.webp)

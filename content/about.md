@@ -17,3 +17,6 @@ I got my B.Sc. in Software Engineering in 2010, and then started the master in t
 Starting from Sep. 2018, I was an assistant professor at [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/) for almost two years. It led me into rethinking about my goals.
 
 Now, I am working at [Tomorrow Bank](http://tomorrow.one/), and I love the company's mission and vision. I am contributing towards a better tomorrow for everyone.
+
+| ![logo](/images/logotrans.png) |
+| :--: |

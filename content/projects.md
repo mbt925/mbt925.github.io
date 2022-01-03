@@ -21,3 +21,24 @@ An app for buying and selling vehicles. I implemented both Android and iOS apps 
 
 ### ![icon](/images/elecapps.png) ElecApps
 It's a Market for electrical apps. Something like a mini Google Playstore!
+
+### ![icon](/images/mobile.png) Apps Maker CMS
+An application for creating Mobile Applications (Java, Android, and iOS) with no coding. The user just has to create forms and add the desired views to them via a convenient GUI. Everything is done just by clicking some buttons and going through respective flows.
+
+### ![icon](/images/ocr/icon.png) [Persian Digits OCR](/projects/ocr)
+A persian digits OCR system which ranked 1st at the international Persian digits competition held by the [University of Birjand](https://en.wikipedia.org/wiki/University_of_Birjand) at 2013.
+
+### ![icon](/images/face.png) Automatic Face Detection and Recognition System
+My team and I developed a face detection and recognition system to participate in the AAIC  2013 face recognition competition at [Amirkabir University of Technology](https://en.wikipedia.org/wiki/Amirkabir_University_of_Technology). The system's focus was on a robust feature extraction using Gabor filter and LBP. LDA was utilized for feature reduction. The system was ranked 3rd in a close competition.
+
+### ![icon](/images/mbtranslator/icon.png) [MBTranslator Assistant](/projects/mbtranslator)
+A desktop app for Persian translators to create movies/series subtitles. The app supports different subtitle formats like srt and sub/idx.
+
+### ![icon](/images/mbtimer/icon.png) [MBTimer](/projects/mbtimer)
+A dialup!! Internet connections management app. The app manages passwords, data usages, and everything related to dialup Internet connections.
+
+### ![icon](/images/behnama/icon.png) [BehNama Java Mobile Library](/projects/behnama)
+A java mobile GUI library for designing Java Mobile Applications. With BehNama, a developer didn't need to use any of the native GUI components.
+
+### ![icon](/images/behnevis/icon.png) [Behnevis Java Mobile Library](/projects/behnevis)
+A BiDi text handler library for using Persian (RTL) texts in Java Mobile Applications by Bitmap fonts.
