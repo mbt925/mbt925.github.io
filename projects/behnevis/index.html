@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/mbt925.github.io\/projects\/behnevis\/"
-        },"genre": "projects","wordcount":  166 ,
+        },"genre": "projects","wordcount":  171 ,
         "url": "http:\/\/mbt925.github.io\/projects\/behnevis\/","datePublished": "2022-01-03T17:00:52+01:00","dateModified": "2022-01-03T17:00:52+01:00","publisher": {
             "@type": "Organization",
             "name": "Author"},"author": {
@@ -85,7 +85,7 @@
 <p>J2ME (Java Mobile) development didn&rsquo;t support BiDi texts and also full aligment of texts. Also Android couldn&rsquo;t handle BiDi texts in early days. I created BehNevis as a solution to both problems. I then extend BehNevis to support Android. I heavily used it up until Android 4.4. BehNevis had the following features:</p>
 <ul>
 <li><strong>Drawing via bitmap font</strong>: with this, one could display a text with a certain bitmap font across multiple devices, irrespective of their internal BiDi support level. However, BehNevis had to handle all the prerequisite low-level text processing, including shaping, measurement, etc.</li>
-<li><strong>Reshaping</strong>: When a framework/OS doesn&rsquo;t know anything about a language, it simply concatenates characters together and displays them. With reshaping, BehNevis could fix this issue and replace the correct character in all positions, e.g., changing م‌ح‌س‌ن to محسن.</li>
+<li><strong>Reshaping</strong>: When a framework/OS shape render engine doesn&rsquo;t support open type features (or gsub table), it simply concatenates characters together and displays them. With reshaping, BehNevis could fix this issue and replace the correct character in all positions, e.g., changing م‌ح‌س‌ن to محسن.</li>
 <li><strong>Alignment</strong>: BehNevis supported left, right, center and full alignment of texts.</li>
 <li><strong>Rich Texts</strong>: BehNevis supported BiDi texts plus images. One could display an arbitary combination of English text, Persian text, Arabic text and images.</li>
 </ul>
