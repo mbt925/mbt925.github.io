@@ -13,7 +13,8 @@
       <pubDate>Mon, 03 Jan 2022 17:00:52 +0100</pubDate>
       
       <guid>http://mbt925.github.io/projects/behnevis/</guid>
-      <description></description>
+      <description>J2ME (Java Mobile) development didn&amp;rsquo;t support BiDi texts and also full aligment of texts. Also Android couldn&amp;rsquo;t handle BiDi texts in early days. I created BehNevis as a solution to both problems. I then extend BehNevis to support Android. I heavily used it up until Android 4.4. BehNevis had the following features:
+ Drawing via bitmap font: with this, one could display a text with a certain bitmap font across multiple devices, irrespective of their internal BiDi support level.</description>
     </item>
     
     <item>
