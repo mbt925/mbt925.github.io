@@ -12,11 +12,10 @@ I am in love with animals, especially birds and fishes. It may be odd, but I hav
 
 I love programming, and I have some experiences with some programming languages like VB6, C, C++, Java, C#\Net, VB.Net, MATLAB, Python, Java Mobile, iOS (Objective-C, Swift), and Android (Java, Kotlin). I am mainly an Android developer, and I do basic web programming just for personal purposes. You can have a look at my last projects from [here](/projects).
 
-I got my B.Sc. in Software Engineering in 2010, and then started the master in the same year and got my M.Sc. in 2012, both from the [University of Kashan](http://kashanu.ac.ir/). I started the doctoral in computer engineering immediately and finished my Ph.D. in 2017 from [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/).
+I got my B.Sc. in Software Engineering at 2010, and my M.Sc. at 2012, both from the [University of Kashan](http://kashanu.ac.ir/). I finished my doctoral's in computer engineering at 2017 from [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/).
 
-Starting from Sep. 2018, I was an assistant professor at [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/) for almost two years. It led me into rethinking about my goals.
+Starting from Sep. 2018, I was an assistant professor at [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/) for almost two years. It led me into rethinking about my goals. Now, I am working at [Tomorrow Bank](http://tomorrow.one/), and I love the company's mission and vision. I am contributing towards a better tomorrow for everyone.
 
-Now, I am working at [Tomorrow Bank](http://tomorrow.one/), and I love the company's mission and vision. I am contributing towards a better tomorrow for everyone.
+{{< line_break >}}
 
-| ![logo](/images/logotrans.png) |
-| :--: |
+![logo](/images/logotrans.png " ")
