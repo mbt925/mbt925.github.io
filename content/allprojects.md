@@ -7,6 +7,12 @@ draft: false
 ### ![babynurse icon](/images/babynurse/icon.png) [BabyNurse | مادریار](/projects/babynurse)
 An Android-only baby care app. With Babynurse, parents would have something close to a nurse.
 
+### ![multitap wear keyboard](/images/multi_tap_wear_keyboard/icon.png) [MultiTap Wear Keyboard](/projects/multi_tap_wear_keyboard)
+A multi-tap (T9) keyboard for Wear OS smartwatches.
+
+### ![wear favorite apps launcher](/images/wear_favorite_apps_launcher/icon.png) [Wear Favorite Apps Launcher](/projects/wear_favorite_apps_launcher)
+A launcher only for the favorite apps on Wear OS smartwatches.
+
 ### ![wear persian calendar icon](/images/wear_persian_calendar/icon.png) [Wear Persian Calendar](/projects/wear_persian_calendar)
 A compact persian calendar for Wear OS smartwatches.
 
