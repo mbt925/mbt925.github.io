@@ -6,7 +6,30 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jan 2022 17:00:52 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Jan 2022 18:40:02 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Wear Favorite Apps Launcher</title>
+      <link>http://mbt925.github.io/projects/wear_favorite_apps_launcher/</link>
+      <pubDate>Fri, 07 Jan 2022 18:40:02 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/wear_favorite_apps_launcher/</guid>
+      <description>Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly.
+ The first set is accessible via a secondary physical button of your watch The second set is accessible via long pressing the primary button of your watch The third set can be configured and used via a Tile  🔗 Google Play</description>
+    </item>
+    
+    <item>
+      <title>MultiTap Wear Keyboard</title>
+      <link>http://mbt925.github.io/projects/multi_tap_wear_keyboard/</link>
+      <pubDate>Fri, 07 Jan 2022 18:39:52 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/multi_tap_wear_keyboard/</guid>
+      <description>MultiTap Wear Keyboard brings the good old T9 keyboard to Wear OS smartwatches. It supports both multi-tapping and long-pressing keys.
+Currently supported languages/keyboards are as follows:
+ English Persian Swedish Hebrew Spanish Emojis  If you have any suggestions, bugs report, or you like your language to be added to the app, please contact me.
+🔗 Google Play
+ Privacy Policy MultiTap Wear Keyboard app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.</description>
+    </item>
+    
     <item>
       <title>Behnevis</title>
       <link>http://mbt925.github.io/projects/behnevis/</link>
