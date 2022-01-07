@@ -6,7 +6,7 @@ draft: false
 
 ![icon](/images/wear_favorite_apps_launcher/icon.png)
 
-Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly. 
+Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Wear Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly. 
 
 1. The first set is accessible via a secondary physical button of your watch
 2. The second set is accessible via long pressing the primary button of your watch
@@ -17,7 +17,7 @@ Smartwatches have small screens and one cannot scroll through the apps fast enou
 ---
 
 ### Privacy Policy
-Favorite Apps Launcher app doesn't collect any user data. All data are hosted locally on the device.
+Wear Favorite Apps Launcher app doesn't collect any user data. All data are hosted locally on the device.
 
 ---
 

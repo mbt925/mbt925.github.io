@@ -8,7 +8,7 @@ draft: false
 
 MultiTap Wear Keyboard brings the good old T9 keyboard to Wear OS smartwatches. It supports both multi-tapping and long-pressing keys.
 
-Currently supported languages/keyboards are as follows:
+Currently, the supported languages/keyboards are as follows:
 - English
 - Persian
 - Swedish

@@ -13,7 +13,7 @@
       <pubDate>Fri, 07 Jan 2022 18:40:02 +0100</pubDate>
       
       <guid>http://mbt925.github.io/projects/wear_favorite_apps_launcher/</guid>
-      <description>Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly.
+      <description>Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Wear Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly.
  The first set is accessible via a secondary physical button of your watch The second set is accessible via long pressing the primary button of your watch The third set can be configured and used via a Tile  🔗 Google Play</description>
     </item>
     
@@ -24,10 +24,10 @@
       
       <guid>http://mbt925.github.io/projects/multi_tap_wear_keyboard/</guid>
       <description>MultiTap Wear Keyboard brings the good old T9 keyboard to Wear OS smartwatches. It supports both multi-tapping and long-pressing keys.
-Currently supported languages/keyboards are as follows:
+Currently, the supported languages/keyboards are as follows:
  English Persian Swedish Hebrew Spanish Emojis  If you have any suggestions, bugs report, or you like your language to be added to the app, please contact me.
 🔗 Google Play
- Privacy Policy MultiTap Wear Keyboard app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.</description>
+ Privacy Policy MultiTap Wear Keyboard app doesn&amp;rsquo;t collect any user data.</description>
     </item>
     
     <item>
