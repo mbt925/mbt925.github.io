@@ -14,6 +14,7 @@ Currently, the supported languages/keyboards are as follows:
 - Swedish
 - Hebrew
 - Spanish
+- Italian
 - Emojis
 
 If you have any suggestions, bugs report, or you like your language to be added to the app, please contact me.
