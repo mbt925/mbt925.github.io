@@ -56,7 +56,7 @@ publishdir = "."
   
   # Social config about the author
   [params.social]
-    Email = "mbt925 at gmail dot com"
+    Email = "mbt925@gmail.com"
     GitHub = "mbt925"
     Linkedin = "mbt925"
     Twitter = "mbt9252"
