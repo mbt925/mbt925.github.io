@@ -13,8 +13,8 @@ Chartex was a B2B service. So we had to prepare the apps for different businesse
 
 ### Screenshots
 
-![screenshot1](/images/chartex/screenshot1.webp)
-![screenshot2](/images/chartex/screenshot2.webp)
-![screenshot3](/images/chartex/screenshot3.webp)
-![screenshot4](/images/chartex/screenshot4.webp)
-![screenshot5](/images/chartex/screenshot5.webp)
+{{< image src="/images/chartex/screenshot1.webp">}}
+{{< image src="/images/chartex/screenshot2.webp">}}
+{{< image src="/images/chartex/screenshot3.webp">}}
+{{< image src="/images/chartex/screenshot4.webp">}}
+{{< image src="/images/chartex/screenshot5.webp">}}

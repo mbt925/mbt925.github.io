@@ -19,11 +19,11 @@ Babynurse app doesn't collect any user data. All data are hosted locally on the 
 
 ### Screenshots
 
-![screenshot1](/images/babynurse/screenshot1.png)
-![screenshot2](/images/babynurse/screenshot2.jpeg)
-![screenshot3](/images/babynurse/screenshot3.jpeg)
-![screenshot4](/images/babynurse/screenshot4.jpeg)
-![screenshot5](/images/babynurse/screenshot5.jpeg)
-![screenshot6](/images/babynurse/screenshot6.jpeg)
-![screenshot7](/images/babynurse/screenshot7.jpeg)
-![screenshot8](/images/babynurse/screenshot8.jpeg)
+{{< image src="/images/babynurse/screenshot1.png">}}
+{{< image src="/images/babynurse/screenshot2.jpeg">}}
+{{< image src="/images/babynurse/screenshot3.jpeg">}}
+{{< image src="/images/babynurse/screenshot4.jpeg">}}
+{{< image src="/images/babynurse/screenshot5.jpeg">}}
+{{< image src="/images/babynurse/screenshot6.jpeg">}}
+{{< image src="/images/babynurse/screenshot7.jpeg">}}
+{{< image src="/images/babynurse/screenshot8.jpeg">}}

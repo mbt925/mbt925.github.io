@@ -14,7 +14,7 @@ Once upon a time, dialup internet connection was a thing :). Internet connectivi
 
 ### Screenshots
 
-![package](/images/mbtimer/pack.jpeg)
-![screenshot1](/images/mbtimer/screenshot1.png)
-![screenshot2](/images/mbtimer/screenshot2.png)
-![screenshot3](/images/mbtimer/screenshot3.png)
+{{< image src="/images/mbtimer/pack.jpeg">}}
+{{< image src="/images/mbtimer/screenshot1.png">}}
+{{< image src="/images/mbtimer/screenshot2.png">}}
+{{< image src="/images/mbtimer/screenshot3.png">}}

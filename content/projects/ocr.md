@@ -12,14 +12,8 @@ My team and I participated in an international Persian digits competition held b
 
 ### Screenshots
 
-| ![pria2013](/images/ocr/pria2013.webp) | 
-|:--:| 
-| [The First Iranian Conference on Pattern Recognition and Image Analysis (PRIA 2013)](https://ieeexplore.ieee.org/xpl/conhome/6520975/proceeding) |
+{{< image src="/images/ocr/pria2013.webp" caption="[The First Iranian Conference on Pattern Recognition and Image Analysis (PRIA 2013)](https://ieeexplore.ieee.org/xpl/conhome/6520975/proceeding)">}}
 
-| ![pars_dataset](/images/ocr/pars_dataset.webp) | 
-|:--:| 
-| [Pars dataset](https://ieeexplore.ieee.org/xpl/conhome/6520975/proceeding) |
+{{< image src="/images/ocr/pars_dataset.webp" caption="[Pars dataset](https://ieeexplore.ieee.org/xpl/conhome/6520975/proceeding)">}}
 
-| ![hoda_dataset](/images/ocr/hoda_dataset.webp) |
-|:--:|
-| [HODA dataset](https://www.kaggle.com/hamedetezadi/persian-numbers)
+{{< image src="/images/ocr/hoda_dataset.webp" caption="[HODA dataset](https://www.kaggle.com/hamedetezadi/persian-numbers)">}}

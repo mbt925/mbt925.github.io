@@ -30,10 +30,10 @@ MultiTap Wear Keyboard app doesn't collect any user data. All data are hosted lo
 
 ### Screenshots
 
-![screenshot1](/images/multi_tap_wear_keyboard/screenshot1.png)
-![screenshot2](/images/multi_tap_wear_keyboard/screenshot2.png)
-![screenshot1](/images/multi_tap_wear_keyboard/screenshot3.png)
-![screenshot2](/images/multi_tap_wear_keyboard/screenshot4.png)
-![screenshot1](/images/multi_tap_wear_keyboard/screenshot5.png)
-![screenshot2](/images/multi_tap_wear_keyboard/screenshot6.png)
-![screenshot1](/images/multi_tap_wear_keyboard/screenshot7.png)
+{{< image src="/images/multi_tap_wear_keyboard/screenshot1.png">}}
+{{< image src="/images/multi_tap_wear_keyboard/screenshot2.png">}}
+{{< image src="/images/multi_tap_wear_keyboard/screenshot3.png">}}
+{{< image src="/images/multi_tap_wear_keyboard/screenshot4.png">}}
+{{< image src="/images/multi_tap_wear_keyboard/screenshot5.png">}}
+{{< image src="/images/multi_tap_wear_keyboard/screenshot6.png">}}
+{{< image src="/images/multi_tap_wear_keyboard/screenshot7.png">}}

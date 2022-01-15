@@ -17,8 +17,8 @@ J2ME (Java Mobile) development didn't support BiDi texts and also full aligment 
 
 ### Screenshots
 
-![screenshot1](/images/behnevis/screenshot1.png)
-![screenshot2](/images/behnevis/screenshot2.png)
-![screenshot3](/images/behnevis/screenshot3.png)
-![screenshot4](/images/behnevis/screenshot4.png)
-![screenshot5](/images/behnevis/screenshot5.png)
+{{< image src="/images/behnevis/screenshot1.png">}}
+{{< image src="/images/behnevis/screenshot2.png">}}
+{{< image src="/images/behnevis/screenshot3.png">}}
+{{< image src="/images/behnevis/screenshot4.png">}}
+{{< image src="/images/behnevis/screenshot5.png">}}

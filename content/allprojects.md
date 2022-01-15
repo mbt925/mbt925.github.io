@@ -29,7 +29,7 @@ An app for buying and selling vehicles. I implemented both Android and iOS apps 
 It's a Market for electrical apps. Something like a mini Google Playstore!
 
 ### ![mobile icon](/images/mobile.png) Apps Maker CMS
-An application for creating Mobile Applications (Java, Android, and iOS) with no coding. The user just has to create forms and add the desired views to them via a convenient GUI. Everything is done just by clicking some buttons and going through respective flows.
+An application for creating Mobile Applications (Java, Android, and iOS) with no coding. The user just needs to create forms and add the desired views to them via a convenient GUI. Everything is done by clicking some buttons and going through respective flows.
 
 ### ![ocr icon](/images/ocr/icon.png) [Persian Digits OCR](/projects/ocr)
 A persian digits OCR system which ranked 1st at the international Persian digits competition held by the [University of Birjand](https://en.wikipedia.org/wiki/University_of_Birjand) at 2013.

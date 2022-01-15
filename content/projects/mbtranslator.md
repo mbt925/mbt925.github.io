@@ -14,6 +14,6 @@ At around 2009-2010, I was into translating movies and tv series. The popular ap
 
 ### Screenshots
 
-![screenshot1](/images/mbtranslator/screenshot1.png)
-![screenshot2](/images/mbtranslator/screenshot2.png)
-![screenshot3](/images/mbtranslator/screenshot3.png)
+{{< image src="/images/mbtranslator/screenshot1.png">}}
+{{< image src="/images/mbtranslator/screenshot2.png">}}
+{{< image src="/images/mbtranslator/screenshot3.png">}}
