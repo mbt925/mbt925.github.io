@@ -4,6 +4,9 @@ title = 'Mohsen Biglari'
 theme = "loveit"
 publishdir = "."
 
+[markup.goldmark.renderer]
+  unsafe = true
+
 [params]
   # LoveIt theme version
   version = "0.2.X"
@@ -72,10 +75,18 @@ publishdir = "."
     title = ""
     weight = 1
   [[menu.main]]
+    identifier = "Educations"
+    pre = ""
+    post = ""
+    name = "Educations"
+    url = "/educations/"
+    title = ""
+    weight = 2    
+  [[menu.main]]
     identifier = "About"
     pre = ""
     post = ""
     name = "About"
     url = "/about/"
     title = ""
-    weight = 2
+    weight = 3
