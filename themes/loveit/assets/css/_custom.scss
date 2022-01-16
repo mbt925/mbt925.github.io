@@ -2,3 +2,18 @@
 // Custom style
 // 自定义样式
 // ==============================
+
+#nested_table {
+    background:transparent;
+    margin:0;
+
+    th {
+        border: none;
+        padding: 0;
+    }
+    th#right {
+        text-align:right;
+    }
+}
+
+/* | <table class="nestedTable" style="background:transparent;margin:0;"><tr><th style="border: none;padding: 0;">Company</th><th style="border: none;padding: 0;text-align:right;">{{< green "Co-Advisor" >}}</th></table>   | */
