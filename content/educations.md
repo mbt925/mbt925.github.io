@@ -4,7 +4,7 @@ date: 2022-01-15T21:58:20+01:00
 draft: false
 ---
 
-| <table id="nested_table"><tr><th>![icon](/images/educations/phd.png) ***Doctoral*** in Artificial Intelligence</th><th id="right">{{< tag "[2012-2017] -- 4.5 Years" >}}</th></table> |
+| <table class="nested_table" id="nested_table"><tr><th>![icon](/images/educations/phd.png) ***Doctoral*** in Artificial Intelligence</th><th id="right">{{< tag "[2012-2017] -- 4.5 Years" >}}</th></table> |
 | :------ |
 | [Shahrood University of Technology](https://shahroodut.ac.ir/en/)<ul><li>{{< green "Advisor" >}} [Ali Soleimani](https://ieeexplore.ieee.org/author/37679938800)</li><li>{{< green "Co-Advisor" >}} [Hamid Hassanpour](https://scholar.google.com/citations?user=RgIoUX0AAAAJ&hl=en)</li><li>{{< blue "Thesis Title" >}} Vehicle Make and Model Recognition using Part-based Models</li></ul>  |
 
