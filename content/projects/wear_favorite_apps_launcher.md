@@ -4,7 +4,7 @@ date: 2022-01-07T18:40:02+01:00
 draft: false
 ---
 
-![icon](/images/wear_favorite_apps_launcher/icon.png)
+![icon](/images/projects/wear_favorite_apps_launcher/icon.png)
 
 Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Wear Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly. 
 
@@ -23,9 +23,9 @@ Wear Favorite Apps Launcher app doesn't collect any user data. All data are host
 
 ### Screenshots
 
-{{< image src="/images/wear_favorite_apps_launcher/screenshot1.png" >}}
-{{< image src="/images/wear_favorite_apps_launcher/screenshot2.png" >}}
-{{< image src="/images/wear_favorite_apps_launcher/screenshot3.png" >}}
-{{< image src="/images/wear_favorite_apps_launcher/screenshot4.png" >}}
-{{< image src="/images/wear_favorite_apps_launcher/screenshot5.png" >}}
-{{< image src="/images/wear_favorite_apps_launcher/screenshot6.png" >}}
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot1.png" >}}
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot2.png" >}}
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot3.png" >}}
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot4.png" >}}
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot5.png" >}}
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot6.png" >}}

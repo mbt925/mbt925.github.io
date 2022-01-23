@@ -81,7 +81,23 @@ publishdir = "."
     name = "Educations"
     url = "/educations/"
     title = ""
-    weight = 2    
+    weight = 2
+  [[menu.main]]
+    identifier = "Academia"
+    pre = ""
+    post = ""
+    name = "Academia"
+    url = "/academia/"
+    title = ""
+    weight = 3
+  [[menu.main]]
+    identifier = "Publications"
+    pre = ""
+    post = ""
+    name = "Publications"
+    url = "/publications/"
+    title = ""
+    weight = 4
   [[menu.main]]
     identifier = "About"
     pre = ""
@@ -89,4 +105,4 @@ publishdir = "."
     name = "About"
     url = "/about/"
     title = ""
-    weight = 3
+    weight = 5

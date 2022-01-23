@@ -1,10 +1,10 @@
 ---
-title: "Behnevis"
+title: "Behnevis Java Mobile Library"
 date: 2022-01-03T17:00:52+01:00
 draft: false
 ---
 
-![icon](/images/behnevis/icon.png)
+![icon](/images/projects/behnevis/icon.png)
 
 J2ME (Java Mobile) development didn't support BiDi texts and also full aligment of texts. Also Android couldn't handle BiDi texts in early days. I created BehNevis as a solution to both problems. I then extend BehNevis to support Android. I heavily used it up until Android 4.4. BehNevis had the following features: 
 
@@ -17,8 +17,8 @@ J2ME (Java Mobile) development didn't support BiDi texts and also full aligment 
 
 ### Screenshots
 
-{{< image src="/images/behnevis/screenshot1.png">}}
-{{< image src="/images/behnevis/screenshot2.png">}}
-{{< image src="/images/behnevis/screenshot3.png">}}
-{{< image src="/images/behnevis/screenshot4.png">}}
-{{< image src="/images/behnevis/screenshot5.png">}}
+{{< image src="/images/projects/behnevis/screenshot1.png">}}
+{{< image src="/images/projects/behnevis/screenshot2.png">}}
+{{< image src="/images/projects/behnevis/screenshot3.png">}}
+{{< image src="/images/projects/behnevis/screenshot4.png">}}
+{{< image src="/images/projects/behnevis/screenshot5.png">}}
