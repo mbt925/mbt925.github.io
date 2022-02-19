@@ -23,3 +23,4 @@ Wear Persian Calendar app doesn't collect any user data. All data are hosted loc
 {{< image src="/images/projects/wear_persian_calendar/screenshot2.webp" >}}
 {{< image src="/images/projects/wear_persian_calendar/screenshot3.png" >}}
 {{< image src="/images/projects/wear_persian_calendar/screenshot4.png" >}}
+{{< image src="/images/projects/wear_persian_calendar/screenshot5.png" >}}
