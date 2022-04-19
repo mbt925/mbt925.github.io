@@ -13,6 +13,9 @@ A multi-tap (T9) keyboard for Wear OS smartwatches.
 ### ![wear favorite apps launcher](/images/projects/wear_favorite_apps_launcher/icon.png) [Wear Favorite Apps Launcher](/projects/wear_favorite_apps_launcher)
 A launcher only for the favorite apps on Wear OS smartwatches.
 
+### ![weasy launcher](/images/projects/weasy_launcher/icon.png) [Weasy Launcher](/projects/weasy_launcher)
+A circular launcher as a replacement for Wear OS smartwatches' default launcher.
+
 ### ![wear persian calendar icon](/images/projects/wear_persian_calendar/icon.png) [Wear Persian Calendar](/projects/wear_persian_calendar)
 A compact persian calendar for Wear OS smartwatches.
 

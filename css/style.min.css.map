@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "/Users/mohsen/Desktop/mbt925.github.io",
+	"sourceRoot": "/Users/mohsenbiglari/projects/mbt925.github.io",
 	"sources": [
 		"themes/loveit/assets/css/style.scss",
 		"themes/loveit/assets/css/_variables.scss",
