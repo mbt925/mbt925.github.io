@@ -120,16 +120,5 @@ Currently, the supported languages/keyboards are as follows:
       <description>First Persian baby care app for Iranian mothers. This app measures baby&amp;rsquo;s weight, height, and every other required measurement. It also records diaper changes, breastfeedings, sleep, medications, vaccinations, diaries, bottle feedings, foods, baths, doctor visitations, activities, and teeth details. A busy mother won&amp;rsquo;t forget anything about her child because everything will be reminded to her, e.g., today is the vaccination day, or now is the time for a diaper change.</description>
     </item>
     
-    <item>
-      <title>Weasy Launcher</title>
-      <link>http://mbt925.github.io/projects/weasy_launcher/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://mbt925.github.io/projects/weasy_launcher/</guid>
-      <description>Working with Wear OS default launcher is not easy as it&amp;rsquo;s only horizontally scrollable. Weasy launcher tries to bring a circular launcher similar to apple watches.
-Weasy launcher scales up the apps close to the screen center so they would be easier to interact with. Marking apps as favorite will bring them closer to the center. Opening apps info screen is just two taps away.
-Unforetuanly, it&amp;rsquo;s not possible on some smartwatches to override the default launcher, so you need to use one the following workaround to open Weasy launcher:</description>
-    </item>
-    
   </channel>
 </rss>

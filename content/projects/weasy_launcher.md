@@ -1,6 +1,6 @@
 ---
 title: "Weasy Launcher"
-date: 2022-04-20T00:70:02+01:00
+date: 2022-04-20T00:07:02+01:00
 draft: false
 ---
 
