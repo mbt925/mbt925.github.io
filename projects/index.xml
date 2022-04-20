@@ -6,7 +6,18 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Jan 2022 18:40:02 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Apr 2022 00:07:02 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Weasy Launcher</title>
+      <link>http://mbt925.github.io/projects/weasy_launcher/</link>
+      <pubDate>Wed, 20 Apr 2022 00:07:02 +0100</pubDate>
+      
+      <guid>http://mbt925.github.io/projects/weasy_launcher/</guid>
+      <description>Working with Wear OS default launcher is not easy as it&amp;rsquo;s only horizontally scrollable. Weasy launcher tries to bring a circular launcher similar to apple watches.
+Weasy launcher scales up the apps close to the screen center so they would be easier to interact with. Marking apps as favorite will bring them closer to the center. Opening apps info screen is just two taps away.
+On some smartwatches, it&amp;rsquo;s not possible to override the default launcher, so you need to use one the following workaround to open Weasy launcher:</description>
+    </item>
+    
     <item>
       <title>Wear Favorite Apps Launcher</title>
       <link>http://mbt925.github.io/projects/wear_favorite_apps_launcher/</link>

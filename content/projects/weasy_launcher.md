@@ -11,7 +11,7 @@ Working with Wear OS default launcher is not easy as it's only horizontally scro
 Weasy launcher scales up the apps close to the screen center so they would be easier to interact with. Marking apps as favorite will bring them closer to the center.
 Opening apps info screen is just two taps away.
 
-Unforetuanly, it's not possible on some smartwatches to override the default launcher, so you need to use one the following workaround to open Weasy launcher:
+On some smartwatches, it's not possible to override the default launcher, so you need to use one the following workarounds to open Weasy launcher:
 
 1. Via a secondary physical button of your watch.
 2. Via long pressing the primary button of your watch. However, it is not possible on some devices.
