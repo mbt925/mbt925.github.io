@@ -6,7 +6,7 @@ draft: false
 
 ![icon](/images/projects/weasy_launcher/icon.png)
 
-Working with Wear OS default launcher is not easy as it's only horizontally scrollable. Weasy launcher tries to bring a circular launcher similar to apple watches.
+Working with Wear OS default launcher is not easy as it's only horizontally scrollable. Weasy launcher tries to bring a circular launcher similar to that of apple watches'.
 
 Weasy launcher scales up the apps close to the screen center so they would be easier to interact with. Marking apps as favorite will bring them closer to the center.
 Opening apps info screen is just two taps away.
