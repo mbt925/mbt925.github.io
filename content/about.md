@@ -8,7 +8,7 @@ My name is **Mohsen Biglari** or **محسن بیگلری** in Persian. I am Iran
 
 My favorite sports are soccer and swimming. From elementary school to high school, I was always in the soccer teams of my schools. However, finding free time for a group sport now is much harder than before.
 
-I am in love with animals, especially birds and fishes. I hate killing or trading them. It may be odd, but I have some experiences as a stockman (or a breeder, in a very small scale). I kept and raised different kinds of mammals (i.e., Sheep, Cow, Goat), birds, and fishes when I was younger! Ah, good old days.
+I am in love with animals, especially birds and fish. I hate killing or trading them. It might be odd, but I have some experiences as a stockman (or a breeder, in a tiny scale). I kept and raised different kinds of mammals (i.e., Sheep, Cow, Goat), birds, and fishes when I was younger! Ah, good old days.
 
 I love programming, and I have some experiences with some programming languages like VB6, C, C++, Java, C#\.Net, VB.Net, MATLAB, Python, Java Mobile, iOS (Objective-C, Swift), and Android (Java, Kotlin). I am mainly an Android developer, and I do basic web programming just for personal purposes. You can have a look at my last projects from [here](/allprojects).
 
