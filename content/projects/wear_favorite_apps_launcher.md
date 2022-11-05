@@ -8,9 +8,9 @@ draft: false
 
 Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Wear Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly. 
 
-1. The first set is accessible via a secondary physical button of your watch
-2. The second set is accessible via long pressing the primary button of your watch
-3. The third set can be configured and used via a Tile
+1. The first set is accessible via a secondary physical button of your watch or double pressing the primary button, depending on your watch form factor.
+2. The second set is accessible via long pressing the primary button of your watch.
+3. The third set can be configured and used via a Tile.
 
 [🔗 Google Play](https://play.google.com/store/apps/details?id=com.mbt925.wear.favoriteappslauncher)
 
