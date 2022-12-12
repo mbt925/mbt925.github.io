@@ -23,6 +23,7 @@ Wear Favorite Apps Launcher app doesn't collect any user data. All data are host
 
 ### Screenshots
 
+{{< image src="/images/projects/wear_favorite_apps_launcher/screenshot0.png" >}}
 {{< image src="/images/projects/wear_favorite_apps_launcher/screenshot1.png" >}}
 {{< image src="/images/projects/wear_favorite_apps_launcher/screenshot2.png" >}}
 {{< image src="/images/projects/wear_favorite_apps_launcher/screenshot3.png" >}}
