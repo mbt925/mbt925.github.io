@@ -6,130 +6,111 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Apr 2022 00:07:02 +0100</lastBuildDate><atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Apr 2022 00:07:02 +0100</lastBuildDate>
+    <atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Weasy Launcher</title>
       <link>http://mbt925.github.io/projects/weasy_launcher/</link>
       <pubDate>Wed, 20 Apr 2022 00:07:02 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/weasy_launcher/</guid>
       <description>Working with Wear OS default launcher is not easy as it&amp;rsquo;s only horizontally scrollable. Weasy launcher tries to bring a circular launcher similar to that of apple watches&#39;.
 Weasy launcher scales up the apps close to the screen center so they would be easier to interact with. Marking apps as favorite will bring them closer to the center. Opening apps info screen is just two taps away.
 On some smartwatches, it&amp;rsquo;s not possible to override the default launcher, so you need to use one the following workarounds to open Weasy launcher:</description>
     </item>
-    
     <item>
       <title>Wear Favorite Apps Launcher</title>
       <link>http://mbt925.github.io/projects/wear_favorite_apps_launcher/</link>
       <pubDate>Fri, 07 Jan 2022 18:40:02 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/wear_favorite_apps_launcher/</guid>
       <description>Smartwatches have small screens and one cannot scroll through the apps fast enough. On the other hand, everyone has some favorite apps each of which should be accessible quickly and easily. Using Wear Favorite Apps Launcher, you can select three sets of favorite apps and access them really quickly.
- The first set is accessible via a secondary physical button of your watch or double pressing the primary button, depending on your watch form factor.</description>
+The first set is accessible via a secondary physical button of your watch or double pressing the primary button, depending on your watch form factor.</description>
     </item>
-    
     <item>
       <title>MultiTap Wear Keyboard</title>
       <link>http://mbt925.github.io/projects/multi_tap_wear_keyboard/</link>
       <pubDate>Fri, 07 Jan 2022 18:39:52 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/multi_tap_wear_keyboard/</guid>
       <description>MultiTap Wear Keyboard brings the good old T9 keyboard to Wear OS smartwatches. It supports both multi-tapping and long-pressing keys.
 Currently, the supported languages/keyboards are as follows:
- English Persian Swedish Hebrew Spanish Italian Emojis  If you have any suggestions, bugs report, or you like your language to be added to the app, please contact me.
+English Persian Swedish Hebrew Spanish Italian Emojis If you have any suggestions, bugs report, or you like your language to be added to the app, please contact me.
 🔗 Google Play
- Privacy Policy MultiTap Wear Keyboard app doesn&amp;rsquo;t collect any user data.</description>
+Privacy Policy MultiTap Wear Keyboard app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.</description>
     </item>
-    
     <item>
       <title>Behnevis Java Mobile Library</title>
       <link>http://mbt925.github.io/projects/behnevis/</link>
       <pubDate>Mon, 03 Jan 2022 17:00:52 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/behnevis/</guid>
       <description>J2ME (Java Mobile) development didn&amp;rsquo;t support BiDi texts and also full aligment of texts. Also Android couldn&amp;rsquo;t handle BiDi texts in early days. At first, I created BehNevis for Java Mobile platform. I then extended it to support Android. I heavily utilized it until Android 4.4. BehNevis had the following features:
- Drawing via bitmap font: with this, one could display a text with a certain bitmap font across multiple devices, irrespective of their internal BiDi support level.</description>
+Drawing via bitmap font: with this, one could display a text with a certain bitmap font across multiple devices, irrespective of their internal BiDi support level.</description>
     </item>
-    
     <item>
       <title>BehNama Java Mobile Library</title>
       <link>http://mbt925.github.io/projects/behnama/</link>
       <pubDate>Mon, 03 Jan 2022 17:00:49 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/behnama/</guid>
-      <description>J2ME (Java Mobile) development was not like Android or iOS development with rich GUI toolkits. The existing ui elements were poor and there were many missing. There were no Table, Tab, Menu, Chart, or Tree components. BehNama was my solution to this problem - A rich GUI toolkit. I implemented many well-known components for J2ME developers. My all-time favorite was a bitmap keyboard.
- Screenshots</description>
+      <description>
+J2ME (Java Mobile) development was not like Android or iOS development with rich GUI toolkits. The existing ui elements were poor and there were many missing. There were no Table, Tab, Menu, Chart, or Tree components. BehNama was my solution to this problem - A rich GUI toolkit. I implemented many well-known components for J2ME developers. My all-time favorite was a bitmap keyboard.
+Screenshots </description>
     </item>
-    
     <item>
       <title>MBTimer</title>
       <link>http://mbt925.github.io/projects/mbtimer/</link>
       <pubDate>Mon, 03 Jan 2022 17:00:42 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/mbtimer/</guid>
       <description>Once upon a time, dialup internet connection was a thing :). Internet connectivity was limited in many aspects, including speed and volume. MBTimer was a tool to keep all the details under controls. It could extract dialup connections&amp;rsquo; usernames and passwords automatically and list them for you. Then, one could config all the connections with different settings. For example, one could set a maximum daily volume for a connection, or set a timer for connecting/disconnecting.</description>
     </item>
-    
     <item>
       <title>MBTranslator Assistant</title>
       <link>http://mbt925.github.io/projects/mbtranslator/</link>
       <pubDate>Mon, 03 Jan 2022 17:00:37 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/mbtranslator/</guid>
-      <description>At around 2009-2010, I was into translating movies and tv series. The popular apps at the time had some issues with RTL languages and BiDi texts. I wrote MBTranslator assitant using C# to tackle those issues. Fortunately, it was accepted by many of the Persian translators.
+      <description>
+At around 2009-2010, I was into translating movies and tv series. The popular apps at the time had some issues with RTL languages and BiDi texts. I wrote MBTranslator assitant using C# to tackle those issues. Fortunately, it was accepted by many of the Persian translators.
 🔗 Download
- Screenshots</description>
+Screenshots </description>
     </item>
-    
     <item>
       <title>Persian Digits OCR</title>
       <link>http://mbt925.github.io/projects/ocr/</link>
       <pubDate>Mon, 03 Jan 2022 16:31:10 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/ocr/</guid>
       <description>My team and I participated in an international Persian digits competition held by the University of Birjand at PRIA 2013 pattern recognition conference and image analysis conference. Our solution was based on an MLP neural network trained on a custom training set. The training set was extended from the original one which was available at the competition&amp;rsquo;s website. LBP was used as the feature extractor. Due to the lightweight configuration of the system, the runtime processing speed was quite high (10 ms per image).</description>
     </item>
-    
     <item>
       <title>BazarKhodro</title>
       <link>http://mbt925.github.io/projects/bazarkhodro/</link>
       <pubDate>Mon, 03 Jan 2022 15:22:45 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/bazarkhodro/</guid>
-      <description>Using BazarKhodro, one can sell a used car, or buy one. Searching is possible using multiple filters and orderings, together with marking and adding notes to certion results. Users can be notificed based on different triggers, e.g., availability of a certain make and model, or a certain price threshold for a specific car.
+      <description>
+Using BazarKhodro, one can sell a used car, or buy one. Searching is possible using multiple filters and orderings, together with marking and adding notes to certion results. Users can be notificed based on different triggers, e.g., availability of a certain make and model, or a certain price threshold for a specific car.
 🔗 Google Play
- Screenshots</description>
+Screenshots </description>
     </item>
-    
     <item>
       <title>Chartex</title>
       <link>http://mbt925.github.io/projects/chartex/</link>
       <pubDate>Mon, 03 Jan 2022 13:38:37 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/chartex/</guid>
       <description>Chartex started with just domestic flights, then extended with international flights, domestic and international hotels, trains, buses and travel insurances. It has both Android and iOS apps which are identical in terms of features. Chartex was a B2B service. So we had to prepare the apps for different businesses with different themes and requirements. We made necessary ad-hoc tools to make this process as automatic as possible. Starting from customizing the required sections (flight, hotel, etc.</description>
     </item>
-    
     <item>
       <title>Wear Persian Calendar</title>
       <link>http://mbt925.github.io/projects/wear_persian_calendar/</link>
       <pubDate>Mon, 03 Jan 2022 12:05:58 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/wear_persian_calendar/</guid>
-      <description>Wear Persian Calendar includes a Persian calendar app, two Complications, and a Tile for Wear OS devices. Users will have an up-to-date persian calendar including holidays and events. The current date is observable via different complications or tiles.
+      <description>
+Wear Persian Calendar includes a Persian calendar app, two Complications, and a Tile for Wear OS devices. Users will have an up-to-date persian calendar including holidays and events. The current date is observable via different complications or tiles.
 🔗 Google Play
- Privacy Policy Wear Persian Calendar app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.
- Screenshots</description>
+Privacy Policy Wear Persian Calendar app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.
+Screenshots </description>
     </item>
-    
     <item>
       <title>Baby Nurse | مادریار</title>
       <link>http://mbt925.github.io/projects/babynurse/</link>
       <pubDate>Sat, 01 Jan 2022 20:38:18 +0100</pubDate>
-      
       <guid>http://mbt925.github.io/projects/babynurse/</guid>
       <description>First Persian baby care app for Iranian mothers. This app measures baby&amp;rsquo;s weight, height, and every other required measurement. It also records diaper changes, breastfeedings, sleep, medications, vaccinations, diaries, bottle feedings, foods, baths, doctor visitations, activities, and teeth details. A busy mother won&amp;rsquo;t forget anything about her child because everything will be reminded to her, e.g., today is the vaccination day, or now is the time for a diaper change.</description>
     </item>
-    
   </channel>
 </rss>
