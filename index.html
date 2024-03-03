@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-	<meta name="generator" content="Hugo 0.120.4">
+	<meta name="generator" content="Hugo 0.123.7">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
@@ -11,8 +11,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://mbt925.github.io/" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Mohsen Biglari"/>
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Mohsen Biglari"/>
 <meta name="twitter:description" content="Mohsen Biglari&#39;s personal website"/>
 <meta name="twitter:site" content="@mbt9252"/>
 <meta name="application-name" content="Mohsen Biglari">
@@ -23,7 +22,10 @@
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "http:\/\/mbt925.github.io\/","inLanguage": "en-us","description": "Mohsen Biglari's personal website","name": "Mohsen Biglari"
+        "url": "http:\/\/mbt925.github.io\/","inLanguage": "en-us","author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": "Mohsen Biglari's personal website","name": "Mohsen Biglari"
     }
     </script></head>
     <body header-desktop="" header-mobile=""><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -34,7 +36,7 @@
             <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                     <i class="fas fa-adjust fa-fw"></i>
                 </a>
             </div>
@@ -50,7 +52,7 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
@@ -62,7 +64,7 @@
     <div id="search-dropdown-mobile"></div>
 </div>
 <main class="main">
-                <div class="container"><div class="page home" posts><div class="home-profile"><div class="home-avatar"><a href="/allprojects/" title="Projects"><img
+                <div class="container"><div class="page home" posts><div class="home-profile"><div class="home-avatar"><a href="/posts/" title="Posts"><img
         class="lazyload"
         src="/svg/loading.min.svg"
         data-src="/images/profile.jpg"
@@ -70,9 +72,15 @@
         data-sizes="auto"
         alt="/images/profile.jpg"
         title="/images/profile.jpg" /></a></div><h1 class="home-title">Mobile Software Engineer  |  AI Engineer</h1><div class="links"><a href="https://github.com/mbt925" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://linkedin.com/in/mbt925" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw"></i></a><a href="https://twitter.com/mbt9252" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw"></i></a><a href="https://t.me/mbt925" title="Telegram" target="_blank" rel="noopener noreffer me"><i class="fab fa-telegram-plane fa-fw"></i></a><a href="mailto:mbt925%20at%20gmail%20dot%20com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a></div></div>
-</div></div>
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/handy_coroutine_dispatcher_extension/">A handy Kotlin coroutine extension for switching dispatcher</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-03-02">2024-03-02</time></span></div><div class="content">Imagine you have a suspend function like this:
+suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
+This is a tip A tip banner 1 2 3 4 5 import kotlinx.coroutines.invoke suspend fun doSomething() = Dispatchers.IO { // body } The invoke extension allows you to specify the dispatcher directly within the function call, eliminating the need for withContext.</div><div class="post-footer">
+        <a href="/posts/handy_coroutine_dispatcher_extension/">Read More</a></div>
+</article></div></div>
             </main><footer class="footer" onload="showAge()">
-        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mbt925</a></span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
         </div>
 
         <script type="text/javascript">
@@ -89,5 +97,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":20}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

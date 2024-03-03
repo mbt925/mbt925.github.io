@@ -56,7 +56,15 @@ publishdir = "."
       social = true
       # LoveIt NEW | 0.2.0 disclaimer (HTML format is supported)
       disclaimer = ""
-  
+
+  [params.page]
+    hiddenFromHomePage = false
+    [params.page.code]
+      # whether to show the copy button of the code block
+      copy = true
+      # the maximum number of lines of displayed code by default
+      maxShownLines = 20
+
   # Social config about the author
   [params.social]
     Email = "mbt925 at gmail dot com"
@@ -67,13 +75,21 @@ publishdir = "."
 
 [menu]
   [[menu.main]]
+    identifier = "Posts"
+    pre = ""
+    post = ""
+    name = "Posts"
+    url = "/posts/"
+    title = ""
+    weight = 1
+  [[menu.main]]
     identifier = "Projects"
     pre = ""
     post = ""
     name = "Projects"
     url = "/allprojects/"
     title = ""
-    weight = 1
+    weight = 2
   [[menu.main]]
     identifier = "Educations"
     pre = ""
@@ -81,7 +97,7 @@ publishdir = "."
     name = "Educations"
     url = "/educations/"
     title = ""
-    weight = 2
+    weight = 3
   [[menu.main]]
     identifier = "Academia"
     pre = ""
@@ -89,7 +105,7 @@ publishdir = "."
     name = "Academia"
     url = "/academia/"
     title = ""
-    weight = 3
+    weight = 4
   [[menu.main]]
     identifier = "Publications"
     pre = ""
@@ -97,7 +113,7 @@ publishdir = "."
     name = "Publications"
     url = "/publications/"
     title = ""
-    weight = 4
+    weight = 5
   [[menu.main]]
     identifier = "About"
     pre = ""
@@ -105,4 +121,8 @@ publishdir = "."
     name = "About"
     url = "/about/"
     title = ""
-    weight = 5
+    weight = 6
+
+# Author config
+[author]
+  name = "mbt925"
