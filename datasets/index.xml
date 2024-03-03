@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Datasets on Mohsen Biglari</title>
-    <link>http://localhost:1313/datasets/</link>
+    <link>http://mbt925.github.io/datasets/</link>
     <description>Recent content in Datasets on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 22 Jan 2022 21:08:56 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/datasets/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://mbt925.github.io/datasets/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Recordings of Foraging Task in Swarm Robotics</title>
-      <link>http://localhost:1313/datasets/foraging/</link>
+      <link>http://mbt925.github.io/datasets/foraging/</link>
       <pubDate>Sat, 22 Jan 2022 21:08:56 +0100</pubDate>
-      <guid>http://localhost:1313/datasets/foraging/</guid>
+      <guid>http://mbt925.github.io/datasets/foraging/</guid>
       <description>Here follows a couple of recordings of some of the experiments conducted in this paper.&#xA;Foraging with 0 obstacles, 10 targets, 40 robots, 0 noise, and resting disabled. Total size 61.1 MB. Download Foraging with 0 obstacles, 10 targets, 40 robots, 0 noise, and resting enabled. Total size 54.3 MB. Download Foraging with 0 obstacles, 10 targets, 40 robots, 0.02 noise, and resting enabled. Total size 53.6 MB. Download Foraging with 20 obstacles, 80 targets, 10 robots, 0 noise, and resting disabled.</description>
     </item>
     <item>
       <title>BVMMR Dataset v2</title>
-      <link>http://localhost:1313/datasets/bvmmrv2/</link>
+      <link>http://mbt925.github.io/datasets/bvmmrv2/</link>
       <pubDate>Sat, 22 Jan 2022 20:53:20 +0100</pubDate>
-      <guid>http://localhost:1313/datasets/bvmmrv2/</guid>
+      <guid>http://mbt925.github.io/datasets/bvmmrv2/</guid>
       <description>&#xA;This dataset includes 4858 fully annotated frontal images of 5991 vehicles from 28 different make and models.&#xA;Total size 1.38 GB. Note Please cite this paper if you have used the dataset. Download : Part1 Part2 Part3 Part4 </description>
     </item>
     <item>
       <title>BVMMR Dataset v1</title>
-      <link>http://localhost:1313/datasets/bvmmrv1/</link>
+      <link>http://mbt925.github.io/datasets/bvmmrv1/</link>
       <pubDate>Sat, 22 Jan 2022 20:53:18 +0100</pubDate>
-      <guid>http://localhost:1313/datasets/bvmmrv1/</guid>
+      <guid>http://mbt925.github.io/datasets/bvmmrv1/</guid>
       <description>&#xA;This dataset includes 676 fully annotated images of 19 different make and models from frontal and rear views of vehicles. There are two views of each image (frontal and rear).&#xA;Total size 250.6 MB. Note Please cite this paper if you have used the dataset. Download : Dataset MATLAB helper function for reading the annotation files </description>
     </item>
   </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Mohsen Biglari</title>
-        <link>http://localhost:1313/posts/</link>
+        <link>http://mbt925.github.io/posts/</link>
         <description>All Posts | Mohsen Biglari</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 02 Mar 2024 23:23:25 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 02 Mar 2024 23:23:25 &#43;0100</lastBuildDate><atom:link href="http://mbt925.github.io/posts/" rel="self" type="application/rss+xml" /><item>
     <title>A handy Kotlin coroutine extension for switching dispatcher</title>
-    <link>http://localhost:1313/posts/handy_coroutine_dispatcher_extension/</link>
+    <link>http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/</link>
     <pubDate>Sat, 02 Mar 2024 23:23:25 &#43;0100</pubDate>
     <author>mbt925</author>
-    <guid>http://localhost:1313/posts/handy_coroutine_dispatcher_extension/</guid>
+    <guid>http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/blog/handy_coroutine_dispatcher_extension.png" referrerpolicy="no-referrer">
             </div>Imagine you have a suspend function like this:
