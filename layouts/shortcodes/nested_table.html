@@ -1,6 +1,6 @@
 {{ $header := .Get "header" | markdownify }}
 {{ $iconPath := .Get "icon" }}
-{{ $icon := dict "Src" $iconPath | partial "plugin/image.html" -}}
+{{ $icon := dict "Src" $iconPath | partial "plugin/img.html" -}}
 {{ $class := .Get "class" }}
 
 {{ $htmlBody := .Inner | safeHTML }}
