@@ -1,7 +1,7 @@
-baseURL = 'http://mbt925.github.io/'
-languageCode = 'en-us'
-title = 'Mohsen Biglari'
-theme = "loveit"
+baseURL = "http://mbt925.github.io/"
+languageCode = "en-us"
+title = "Mohsen Biglari"
+theme = "LoveIt"
 publishdir = "."
 
 [markup.goldmark.renderer]
@@ -17,6 +17,10 @@ publishdir = "."
   keywords = ["Mohsen", "Biglari", "mbt925"]
   # site default theme ("light", "dark", "auto")
   defaultTheme = "auto"
+
+  [params.header.title]
+    name = "Mohsen Biglari"
+
   # Footer config
   [params.footer]
     enable = true
@@ -27,7 +31,7 @@ publishdir = "."
     # LoveIt NEW | 0.2.0 whether to show copyright info
     copyright = true
     # LoveIt NEW | 0.2.0 whether to show the author
-    author = true
+    author = false
     # Site creation time
     since = 2022
     # ICP info only in China (HTML format is supported)
@@ -39,6 +43,10 @@ publishdir = "."
   [params.home]
     # LoveIt NEW | 0.2.0 amount of RSS pages
     rss = 10
+  [params.home.posts]
+    enable = true
+    # special amount of posts in each home posts page
+    paginate = 6
     # Home page profile
     [params.home.profile]
       enable = true
@@ -47,9 +55,9 @@ publishdir = "."
       # URL of avatar shown in home page
       avatarURL = "/images/profile.jpg"
       # LoveIt CHANGED | 0.2.7 title shown in home page (HTML format is supported)
-      title = "Mobile Software Engineer  |  AI Engineer"
+      title = "Mohsen Biglari"
       # subtitle shown in home page
-      subtitle = ""
+      subtitle = "Software Engineer  |  AI Engineer"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
@@ -70,15 +78,13 @@ publishdir = "."
     Email = "mbt925 at gmail dot com"
     GitHub = "mbt925"
     Linkedin = "mbt925"
-    Twitter = "mbt9252"
-    Telegram = "mbt925"
 
 [menu]
   [[menu.main]]
-    identifier = "Posts"
+    identifier = "Blog"
     pre = ""
     post = ""
-    name = "Posts"
+    name = "Blog"
     url = "/posts/"
     title = ""
     weight = 1
@@ -122,6 +128,12 @@ publishdir = "."
     url = "/about/"
     title = ""
     weight = 6
+
+[markup]
+  # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+  [markup.highlight]
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false
 
 # Author config
 [author]
