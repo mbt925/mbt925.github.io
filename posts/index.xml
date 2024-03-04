@@ -10,7 +10,7 @@
     <author>Author</author>
     <guid>http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/</guid>
     <description><![CDATA[<div class="featured-image">
-                <img src="/images/blog/handy_coroutine_dispatcher_extension.png" referrerpolicy="no-referrer">
+                <img src="/images/blog/handy_coroutine_dispatcher_extension.webp" referrerpolicy="no-referrer">
             </div>Imagine you have a suspend function like this:
 suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
 1 2 3 4 5 import kotlinx.coroutines.invoke suspend fun doSomething() = Dispatchers.IO { // body } The invoke extension allows you to specify the dispatcher directly within the function call, eliminating the need for withContext.]]></description>
