@@ -73,6 +73,16 @@ publishdir = "."
       # the maximum number of lines of displayed code by default
       maxShownLines = 20
 
+    [params.page.share]
+      enable = true
+      Twitter = true
+      Facebook = true
+      Linkedin = true
+      Reddit = true
+      HackerNews = false
+      Line = false
+      Weibo = false
+
   # Social config about the author
   [params.social]
     Email = "mbt925 at gmail dot com"

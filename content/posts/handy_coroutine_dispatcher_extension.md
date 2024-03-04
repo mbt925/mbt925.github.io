@@ -4,6 +4,8 @@ date: 2024-03-02T23:23:25+01:00
 draft: false
 featuredImage: "/images/blog/handy_coroutine_dispatcher_extension.webp"
 featuredImagePreview: "/images/blog/handy_coroutine_dispatcher_extension.webp"
+toc:
+   enable: false
 ---
 
 Imagine you have a suspend function like this:
