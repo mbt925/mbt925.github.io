@@ -3,9 +3,21 @@
         <title>Mohsen Biglari</title>
         <link>http://mbt925.github.io/</link>
         <description>Mohsen Biglari&#39;s personal website</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 02 Mar 2024 23:23:25 &#43;0100</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 08 Mar 2024 23:23:25 &#43;0100</lastBuildDate>
             <atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>A smarter way of testing Coroutines with runTest</title>
+    <link>http://mbt925.github.io/posts/runtest_simplified/</link>
+    <pubDate>Fri, 08 Mar 2024 23:23:25 &#43;0100</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/runtest_simplified/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/runtest_simplified.webp" referrerpolicy="no-referrer">
+            </div>Testing coroutine-based code in Kotlin can be challenging due to its asynchronous nature. Fortunately, Kotlin&rsquo;s kotlinx.coroutines library provides helpful utilities for testing, including the runTest function. Let&rsquo;s dive into how to effectively use runTest and streamline coroutine testing in your Kotlin projects.
+runTest You&rsquo;re probably used runTest before. Let me quote kotlinlang.org:
+Executes testBody as a test in a new coroutine, returning TestResult. On JVM and Native, this function behaves similarly to runBlocking, with the difference that the code that it runs will skip delays.]]></description>
+</item>
+<item>
     <title>A handy Kotlin coroutine extension for switching dispatcher</title>
     <link>http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/</link>
     <pubDate>Sat, 02 Mar 2024 23:23:25 &#43;0100</pubDate>
@@ -14,7 +26,7 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/images/blog/handy_coroutine_dispatcher_extension.webp" referrerpolicy="no-referrer">
             </div>Imagine you have a suspend function like this:
-suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
+1 2 3 suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
 1 2 3 4 5 import kotlinx.coroutines.invoke suspend fun doSomething() = Dispatchers.IO { // body } The invoke extension allows you to specify the dispatcher directly within the function call, eliminating the need for withContext.]]></description>
 </item>
 </channel>

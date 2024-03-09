@@ -6,7 +6,7 @@
         <meta name="robots" content="noodp" />
         <title>A handy Kotlin coroutine extension for switching dispatcher - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="A handy Kotlin coroutine extension for switching dispatcher" />
 <meta property="og:description" content="Imagine you have a suspend function like this:
-suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
+1 2 3 suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
 1 2 3 4 5 import kotlinx.coroutines.invoke suspend fun doSomething() = Dispatchers.IO { // body } The invoke extension allows you to specify the dispatcher directly within the function call, eliminating the need for withContext." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/" /><meta property="article:section" content="posts" />
@@ -15,12 +15,12 @@ suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks a
 
 <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="A handy Kotlin coroutine extension for switching dispatcher"/>
 <meta name="twitter:description" content="Imagine you have a suspend function like this:
-suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
+1 2 3 suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
 1 2 3 4 5 import kotlinx.coroutines.invoke suspend fun doSomething() = Dispatchers.IO { // body } The invoke extension allows you to specify the dispatcher directly within the function call, eliminating the need for withContext."/>
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/" /><link rel="next" href="http://mbt925.github.io/posts/runtest_simplified/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -31,7 +31,7 @@ suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks a
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/mbt925.github.io\/posts\/handy_coroutine_dispatcher_extension\/"
-        },"genre": "posts","wordcount":  81 ,
+        },"genre": "posts","wordcount":  84 ,
         "url": "http:\/\/mbt925.github.io\/posts\/handy_coroutine_dispatcher_extension\/","datePublished": "2024-03-02T23:23:25+01:00","dateModified": "2024-03-02T23:23:25+01:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -70,7 +70,7 @@ suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks a
 </header><main class="main">
                 <div class="container"><article class="page single"><h1 class="single-title animate__animated animate__flipInX">A handy Kotlin coroutine extension for switching dispatcher</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-02">2024-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;81 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-02">2024-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;84 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -80,10 +80,19 @@ suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks a
         data-sizes="auto"
         alt="/images/blog/handy_coroutine_dispatcher_extension.webp"
         title="/images/blog/handy_coroutine_dispatcher_extension.webp" /></div><div class="content" id="content"><p>Imagine you have a suspend function like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">suspend</span> <span class="k">fun</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">=</span> <span class="n">withContext</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="n">IO</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">suspend</span> <span class="k">fun</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">=</span> <span class="n">withContext</span><span class="p">(</span><span class="nc">Dispatchers</span><span class="p">.</span><span class="n">IO</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">   <span class="c1">// body
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></div><p>This looks alright. Using <code>withContext</code> every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the <code>invoke</code> function that simplifies the code and makes it cleaner.</p>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>This looks alright. Using <code>withContext</code> every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the <code>invoke</code> function that simplifies the code and makes it cleaner.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -122,7 +131,8 @@ suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks a
         </section>
     </div>
 
-    <div class="post-nav"></div>
+    <div class="post-nav">
+            <a href="/posts/runtest_simplified/" class="next" rel="next" title="A smarter way of testing Coroutines with runTest">A smarter way of testing Coroutines with runTest<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer" onload="showAge()">
@@ -143,5 +153,5 @@ suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks a
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":20},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

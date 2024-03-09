@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>An smarter way of testing Coroutines with runTest - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="An smarter way of testing Coroutines with runTest" />
+<meta property="og:description" content="Testing coroutine-based code in Kotlin can be challenging due to its asynchronous nature. Fortunately, Kotlin&rsquo;s kotlinx.coroutines library provides helpful utilities for testing, including the runTest function. Let&rsquo;s dive into how to effectively use runTest and streamline coroutine testing in your Kotlin projects.
+runTest You&rsquo;re probably used runTest before. Let me quote kotlinlang.org:
+Executes testBody as a test in a new coroutine, returning TestResult. On JVM and Native, this function behaves similarly to runBlocking, with the difference that the code that it runs will skip delays." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/runtest_extension/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-08T23:23:25+01:00" />
+<meta property="article:modified_time" content="2024-03-08T23:23:25+01:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="An smarter way of testing Coroutines with runTest"/>
+<meta name="twitter:description" content="Testing coroutine-based code in Kotlin can be challenging due to its asynchronous nature. Fortunately, Kotlin&rsquo;s kotlinx.coroutines library provides helpful utilities for testing, including the runTest function. Let&rsquo;s dive into how to effectively use runTest and streamline coroutine testing in your Kotlin projects.
+runTest You&rsquo;re probably used runTest before. Let me quote kotlinlang.org:
+Executes testBody as a test in a new coroutine, returning TestResult. On JVM and Native, this function behaves similarly to runBlocking, with the difference that the code that it runs will skip delays."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/runtest_extension/" /><link rel="prev" href="http://localhost:1313/posts/handy_coroutine_dispatcher_extension/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "An smarter way of testing Coroutines with runTest",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/runtest_extension\/"
+        },"genre": "posts","wordcount":  683 ,
+        "url": "http:\/\/localhost:1313\/posts\/runtest_extension\/","datePublished": "2024-03-08T23:23:25+01:00","dateModified": "2024-03-08T23:23:25+01:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">An smarter way of testing Coroutines with runTest</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-08">2024-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;683 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/handy_coroutine_dispatcher_extension.webp"
+        data-srcset="/images/blog/handy_coroutine_dispatcher_extension.webp, /images/blog/handy_coroutine_dispatcher_extension.webp 1.5x, /images/blog/handy_coroutine_dispatcher_extension.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/handy_coroutine_dispatcher_extension.webp"
+        title="/images/blog/handy_coroutine_dispatcher_extension.webp" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#runtest"><code>runTest</code></a></li>
+    <li><a href="#injecting-coroutinedispatcher">Injecting <code>CoroutineDispatcher</code></a></li>
+    <li><a href="#writing-a-test">Writing a Test</a></li>
+    <li><a href="#improve-the-setup">Improve the setup</a>
+      <ul>
+        <li><a href="#junit5">JUnit5</a></li>
+        <li><a href="#junit4">JUnit4</a></li>
+      </ul>
+    </li>
+    <li><a href="#the-final-version">The final version</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Testing coroutine-based code in Kotlin can be challenging due to its asynchronous nature.
+Fortunately, Kotlin&rsquo;s <code>kotlinx.coroutines</code> library provides helpful utilities for testing, including the <code>runTest</code> function.
+Let&rsquo;s dive into how to effectively use runTest and streamline coroutine testing in your Kotlin projects.</p>
+<h2 id="runtest"><code>runTest</code></h2>
+<p>You&rsquo;re probably used <code>runTest</code> before. Let me quote <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/kotlinx.coroutines.test/run-test.html" target="_blank" rel="noopener noreffer ">kotlinlang.org</a>:</p>
+<blockquote>
+<p>Executes testBody as a test in a new coroutine, returning TestResult.</br>
+On JVM and Native, this function behaves similarly to runBlocking, with the difference that the code that it runs will skip delays.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Test</span>
+</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">exampleTest</span><span class="p">()</span> <span class="p">=</span> <span class="n">runTest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">deferred</span> <span class="p">=</span> <span class="n">async</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">delay</span><span class="p">(</span><span class="m">1.</span><span class="n">seconds</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">async</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delay</span><span class="p">(</span><span class="m">1.</span><span class="n">seconds</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}.</span><span class="n">await</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">deferred</span><span class="p">.</span><span class="n">await</span><span class="p">()</span> <span class="c1">// result available immediately
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>In order to use <code>runTest</code> effectively, one must inject the <code>CoroutineDispatcher</code> to their class.</p>
+<h2 id="injecting-coroutinedispatcher">Injecting <code>CoroutineDispatcher</code></h2>
+<p>Consider the following <code>BooksViewModel</code>, which fetches a list of books and updates the local UI state:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">androidx.lifecycle.ViewModel</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">androidx.lifecycle.viewModelScope</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">kotlinx.coroutines.CoroutineDispatcher</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">kotlinx.coroutines.flow.MutableStateFlow</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">kotlinx.coroutines.flow.StateFlow</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">kotlinx.coroutines.invoke</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">kotlinx.coroutines.launch</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BooksViewModel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">repository</span><span class="p">:</span> <span class="n">BooksRepository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">backgroundDispatcher</span><span class="p">:</span> <span class="n">CoroutineDispatcher</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">_booksUiState</span> <span class="p">=</span> <span class="n">MutableStateFlow</span><span class="p">&lt;</span><span class="n">BooksUiState</span><span class="p">&gt;([</span><span class="n">default</span> <span class="n">state</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">booksUiState</span><span class="p">:</span> <span class="n">StateFlow</span><span class="p">&lt;</span><span class="n">BooksUiState</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">_booksUiState</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">init</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">viewModelScope</span><span class="p">.</span><span class="n">launch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_booksUiState</span><span class="p">.</span><span class="k">value</span> <span class="p">=</span> <span class="n">loadBooks</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">loadBooks</span><span class="p">():</span> <span class="n">BooksUiState</span> <span class="p">=</span> <span class="n">backgroundDispatcher</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">books</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">getBooks</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">books</span><span class="p">.</span><span class="n">toBooksUiState</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">fun</span> <span class="nf">List</span><span class="p">&lt;</span><span class="n">Book</span><span class="p">&gt;.</span><span class="n">toBooksUiState</span><span class="p">():</span> <span class="n">BooksUiState</span> <span class="p">{</span> <span class="o">..</span><span class="p">.</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>It employs two different <code>CoroutineDispatcher</code>s. This allows flexibility in testing by substituting a <code>TestDispatcher</code> during testing.</p>
+<h2 id="writing-a-test">Writing a Test</h2>
+<p>Let&rsquo;s write a test for <code>BooksViewModel</code> using <code>runTest</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BooksViewModelTest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">var</span> <span class="py">dispatcher</span><span class="p">:</span> <span class="n">TestDispatcher</span> <span class="p">=</span> <span class="n">UnconfinedTestDispatcher</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">repository</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="n">BooksRepository</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@BeforeEach</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">setUp</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">setMain</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@AfterEach</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">tearDown</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">resetMain</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Test</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">verifyBooksAreLoaded</span><span class="p">()</span> <span class="p">=</span> <span class="n">runTest</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">coEvery</span> <span class="p">{</span> <span class="n">repository</span><span class="p">.</span><span class="n">getBooks</span><span class="p">()</span> <span class="p">}</span> <span class="n">returns</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Book</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">BooksViewModel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">repository</span> <span class="p">=</span> <span class="n">repository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">backgroundDispatcher</span> <span class="p">=</span> <span class="n">dispatcher</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assert</span><span class="p">(</span><span class="n">viewModel</span><span class="p">.</span><span class="n">booksUiState</span><span class="p">.</span><span class="k">value</span><span class="p">.</span><span class="n">books</span> <span class="o">==</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Book</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>A <code>TestDispatcher</code> is created and passed to both <code>runTest</code> on line 17 and <code>BooksViewModel</code> on line 21.
+It&rsquo;s also set as the Main dispatcher on line 8. We need it because <code>viewModelScope</code> is defined as <code>CloseableCoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)</code>.</p>
+<h2 id="improve-the-setup">Improve the setup</h2>
+<p>The test works, but it is too verbose. Let&rsquo;s improve it step by step. There&rsquo;s a nice hint in the <code>runTest</code>&rsquo;s <a href="https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-test/kotlinx.coroutines.test/run-test.html" target="_blank" rel="noopener noreffer ">documentations</a>:</p>
+<blockquote>
+<p>If <code>Dispatchers.Main</code> is set to a <code>TestDispatcher</code> via <code>Dispatchers.setMain</code> before the test, then its <code>TestCoroutineScheduler</code> is used; otherwise, a new one is automatically created.</p>
+</blockquote>
+<p>We&rsquo;re using <code>Dispatchers.setMain(dispatcher)</code> which means <code>runTest</code> automatically adopts our beloved <code>dispatcher</code>.</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Improvement 1<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Simplify <code>runTest(dispatcher)</code> to <code>runTest</code></div>
+        </div>
+    </div>
+<p>We&rsquo;ll need the following boilerplate every time. Let&rsquo;s extract it to an <a href="https://junit.org/junit5/docs/current/user-guide/#extensions" target="_blank" rel="noopener noreffer ">Extension</a> (JUnit 5) or a <a href="https://developer.android.com/reference/android/arch/core/executor/testing/InstantTaskExecutorRule" target="_blank" rel="noopener noreffer ">Rule</a> (JUnit4).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">private</span> <span class="k">var</span> <span class="py">dispatcher</span><span class="p">:</span> <span class="n">TestDispatcher</span> <span class="p">=</span> <span class="n">UnconfinedTestDispatcher</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@BeforeEach</span>
+</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">setUp</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">setMain</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@AfterEach</span>
+</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">tearDown</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">resetMain</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Improvement 2<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Extract the boilerplate around test dispatcher handling into a reusable component.</div>
+        </div>
+    </div>
+<h3 id="junit5">JUnit5</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CoroutineTestExtension</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">dispatcher</span><span class="p">:</span> <span class="n">TestDispatcher</span> <span class="p">=</span> <span class="n">UnconfinedTestDispatcher</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">AfterEachCallback</span><span class="p">,</span> <span class="n">BeforeEachCallback</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">beforeEach</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">ExtensionContext</span><span class="p">?)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">setMain</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">afterEach</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">ExtensionContext</span><span class="p">?)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">resetMain</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="junit4">JUnit4</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CoroutineTestExtension</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">dispatcher</span><span class="p">:</span> <span class="n">TestDispatcher</span> <span class="p">=</span> <span class="n">UnconfinedTestDispatcher</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">InstantTaskExecutorRule</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">starting</span><span class="p">(</span><span class="n">description</span><span class="p">:</span> <span class="n">Description</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">super</span><span class="p">.</span><span class="n">starting</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">setMain</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">finished</span><span class="p">(</span><span class="n">description</span><span class="p">:</span> <span class="n">Description</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">super</span><span class="p">.</span><span class="n">finished</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">resetMain</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="the-final-version">The final version</h2>
+<p>Now, let&rsquo;s rewrite our initial test.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BooksViewModelTest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@JvmField</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@RegisterExtension</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">testRule</span> <span class="p">=</span> <span class="n">CoroutineTestExtension</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">repository</span> <span class="p">=</span> <span class="n">mockk</span><span class="p">&lt;</span><span class="n">BooksRepository</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Test</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">verifyBooksAreLoaded</span><span class="p">()</span> <span class="p">=</span> <span class="n">runTest</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">coEvery</span> <span class="p">{</span> <span class="n">repository</span><span class="p">.</span><span class="n">getBooks</span><span class="p">()</span> <span class="p">}</span> <span class="n">returns</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Book</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">viewModel</span> <span class="p">=</span> <span class="n">BooksViewModel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">repository</span> <span class="p">=</span> <span class="n">repository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">backgroundDispatcher</span> <span class="p">=</span> <span class="n">testRule</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assert</span><span class="p">(</span><span class="n">viewModel</span><span class="p">.</span><span class="n">booksUiState</span><span class="p">.</span><span class="k">value</span><span class="p">.</span><span class="n">books</span> <span class="o">==</span> <span class="n">listOf</span><span class="p">(</span><span class="n">Book</span><span class="p">(</span><span class="s2">&#34;title&#34;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Quite neat, right? The test dispatcher can be accessed via <code>testRule.dispatcher</code>.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-03-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/runtest_extension/" data-title="An smarter way of testing Coroutines with runTest"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/runtest_extension/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://localhost:1313/posts/runtest_extension/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://localhost:1313/posts/runtest_extension/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/handy_coroutine_dispatcher_extension/" class="prev" rel="prev" title="A handy Kotlin coroutine extension for switching dispatcher"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>A handy Kotlin coroutine extension for switching dispatcher</a></div>
+</div>
+</article></div>
+            </main><footer class="footer" onload="showAge()">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = (function () {
+                showAge()
+            });
+        </script>
+
+        <script defer language="javascript" type="text/javascript"  src="/js/age.js"></script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

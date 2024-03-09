@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://mbt925.github.io/posts/runtest_simplified/</loc><lastmod>2024-03-08T23:23:25&#43;01:00</lastmod></url><url>
+            <loc>http://mbt925.github.io/</loc><lastmod>2024-03-08T23:23:25&#43;01:00</lastmod></url><url>
+            <loc>http://mbt925.github.io/posts/</loc><lastmod>2024-03-08T23:23:25&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/</loc><lastmod>2024-03-02T23:23:25&#43;01:00</lastmod></url><url>
-            <loc>http://mbt925.github.io/</loc><lastmod>2024-03-02T23:23:25&#43;01:00</lastmod></url><url>
-            <loc>http://mbt925.github.io/posts/</loc><lastmod>2024-03-02T23:23:25&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/projects/</loc><lastmod>2022-04-20T00:07:02&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/projects/weasy_launcher/</loc><lastmod>2022-04-20T00:07:02&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/datasets/</loc><lastmod>2022-01-22T21:08:56&#43;01:00</lastmod></url><url>

@@ -10,11 +10,11 @@ toc:
 
 Imagine you have a suspend function like this:
 
-```kotlin
+{{< highlight kotlin "linenos=table">}}
 suspend fun doSomething() = withContext(Dispatchers.IO) {
    // body
 }
-```
+{{< / highlight >}}
 
 This looks alright. Using `withContext` every time looks a bit verbose though. There's a nifty Kotlin extension on the `invoke` function that simplifies the code and makes it cleaner.
 
