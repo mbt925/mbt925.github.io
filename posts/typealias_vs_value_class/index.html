@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Typealias vs. inline value class - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="Typealias vs. inline value class" />
+<meta property="og:description" content="Normally, Typealias and inline value class (which I&rsquo;ll refer to as value class throughout this text) are utilized for different purposes. However, developers might occasionally use one for the other. Let’s explore some examples and clarify the differences.
+Typealias kotlinlang.org does a pretty good job explaining Typealias:
+Type aliases provide alternative names for existing types. If the type name is too long you can introduce a different shorter name and use the new one instead." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://mbt925.github.io/posts/typealias_vs_value_class/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-26T20:28:25+01:00" />
+<meta property="article:modified_time" content="2024-03-26T20:28:25+01:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Typealias vs. inline value class"/>
+<meta name="twitter:description" content="Normally, Typealias and inline value class (which I&rsquo;ll refer to as value class throughout this text) are utilized for different purposes. However, developers might occasionally use one for the other. Let’s explore some examples and clarify the differences.
+Typealias kotlinlang.org does a pretty good job explaining Typealias:
+Type aliases provide alternative names for existing types. If the type name is too long you can introduce a different shorter name and use the new one instead."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/typealias_vs_value_class/" /><link rel="prev" href="http://mbt925.github.io/posts/runtest_simplified/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Typealias vs. inline value class",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/mbt925.github.io\/posts\/typealias_vs_value_class\/"
+        },"genre": "posts","wordcount":  556 ,
+        "url": "http:\/\/mbt925.github.io\/posts\/typealias_vs_value_class\/","datePublished": "2024-03-26T20:28:25+01:00","dateModified": "2024-03-26T20:28:25+01:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Typealias vs. inline value class</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-26">2024-03-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;556 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/typealias_vs_value_class.webp"
+        data-srcset="/images/blog/typealias_vs_value_class.webp, /images/blog/typealias_vs_value_class.webp 1.5x, /images/blog/typealias_vs_value_class.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/typealias_vs_value_class.webp"
+        title="/images/blog/typealias_vs_value_class.webp" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#typealias"><code>Typealias</code></a></li>
+    <li><a href="#inline-value-class"><code>Inline value class</code></a></li>
+    <li><a href="#use-cases">Use cases</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Normally, <code>Typealias</code> and <code>inline value class</code> (which I&rsquo;ll refer to as <code>value class</code> throughout this text) are utilized for different purposes. However, developers might occasionally use one for the other.
+Let’s explore some examples and clarify the differences.</p>
+<h2 id="typealias"><code>Typealias</code></h2>
+<p><a href="https://kotlinlang.org/docs/type-aliases.html" target="_blank" rel="noopener noreffer ">kotlinlang.org</a> does a pretty good job explaining <code>Typealias</code>:</p>
+<blockquote>
+<p>Type aliases provide alternative names for existing types. If the type name is too long you can introduce a different shorter name and use the new one instead.</p>
+</blockquote>
+<p>For instance, it&rsquo;s often tempting to shrink collection types:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">Node2DArray</span> <span class="p">=</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">List</span><span class="p">&lt;</span><span class="n">Node</span><span class="p">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">FileTable</span><span class="p">&lt;</span><span class="n">K</span><span class="p">&gt;</span> <span class="p">=</span> <span class="n">MutableMap</span><span class="p">&lt;</span><span class="n">K</span><span class="p">,</span> <span class="n">MutableList</span><span class="p">&lt;</span><span class="n">File</span><span class="p">&gt;&gt;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>You can have new names for inner and nested classes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">inner</span> <span class="k">class</span> <span class="nc">Inner</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">AInner</span> <span class="p">=</span> <span class="nc">A</span><span class="p">.</span><span class="n">Inner</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="inline-value-class"><code>Inline value class</code></h2>
+<p>Let&rsquo;s see how <a href="https://kotlinlang.org/docs/inline-classes.html" target="_blank" rel="noopener noreffer ">kotlinlang.org</a> defines a <code>value class</code>:</p>
+<blockquote>
+<p>Sometimes it is useful to wrap a value in a class to create a more domain-specific type. Kotlin introduces a special kind of class called an inline class. Inline classes are a subset of value-based classes. They don&rsquo;t have an identity and can only hold values.</p>
+</blockquote>
+<p>To declare a <code>value class</code>, use the <code>value</code> modifier before the name of the class:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="c1">// For JVM backends
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@JvmInline</span>
+</span></span><span class="line"><span class="cl"><span class="k">value</span> <span class="k">class</span> <span class="nc">Password</span><span class="p">(</span><span class="k">private</span> <span class="k">val</span> <span class="py">s</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>A <code>value class</code> must have a single property initialized in the primary constructor. At runtime, instances of the <code>value class</code> will be represented using this single property:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="c1">// No actual instantiation of class &#39;Password&#39; happens
+</span></span></span><span class="line"><span class="cl"><span class="c1">// At runtime &#39;securePassword&#39; contains just &#39;String&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="py">securePassword</span> <span class="p">=</span> <span class="n">Password</span><span class="p">(</span><span class="s2">&#34;Don&#39;t try this in production&#34;</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="use-cases">Use cases</h2>
+<p>Let&rsquo;s consider the following simple data model <code>Person</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">family</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">height</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>If you’re wondering how to ensure that the correct arguments are passed for similarly typed parameters like <code>name</code> and <code>family</code>, or <code>age</code> and <code>height</code>, Kotlin&rsquo;s answer is the <code>value class</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@JvmInline</span>
+</span></span><span class="line"><span class="cl"><span class="k">value</span> <span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@JvmInline</span>
+</span></span><span class="line"><span class="cl"><span class="k">value</span> <span class="k">class</span> <span class="nc">Family</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@JvmInline</span>
+</span></span><span class="line"><span class="cl"><span class="k">value</span> <span class="k">class</span> <span class="nc">Age</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@JvmInline</span>
+</span></span><span class="line"><span class="cl"><span class="k">value</span> <span class="k">class</span> <span class="nc">Height</span><span class="p">(</span><span class="k">val</span> <span class="py">value</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">Name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">family</span><span class="p">:</span> <span class="n">Family</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Age</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">height</span><span class="p">:</span> <span class="n">Height</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Therefore, the caller needs to use the correct argument type for each corresponding parameter, as follows:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="n">Person</span><span class="p">(</span><span class="n">Name</span><span class="p">(</span><span class="s2">&#34;John&#34;</span><span class="p">),</span> <span class="n">Family</span><span class="p">(</span><span class="s2">&#34;Doe&#34;</span><span class="p">),</span> <span class="n">Age</span><span class="p">(</span><span class="m">27</span><span class="p">),</span> <span class="n">Height</span><span class="p">(</span><span class="m">180</span><span class="p">))</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Using <code>typealias</code> in this scenario is not a solution to the aforementioned problem:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">Name</span> <span class="p">=</span> <span class="n">String</span>
+</span></span><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">Family</span> <span class="p">=</span> <span class="n">String</span>
+</span></span><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">Age</span> <span class="p">=</span> <span class="n">Int</span>
+</span></span><span class="line"><span class="cl"><span class="k">typealias</span> <span class="n">Height</span> <span class="p">=</span> <span class="n">Int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">data</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">name</span><span class="p">:</span> <span class="n">Name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">family</span><span class="p">:</span> <span class="n">Family</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">age</span><span class="p">:</span> <span class="n">Age</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">height</span><span class="p">:</span> <span class="n">Height</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Because no rule is enforced at the call site:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="n">Person</span><span class="p">(</span><span class="s2">&#34;Doe&#34;</span><span class="p">,</span> <span class="s2">&#34;John&#34;</span><span class="p">,</span> <span class="m">27</span><span class="p">,</span> <span class="m">180</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip 1<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Type aliases do not introduce new types. They are equivalent to the corresponding underlying types. When you define <code>typealias Name = String</code> and use <code>Name</code> in your code, the Kotlin compiler always expands it to <code>String</code>.</div>
+        </div>
+    </div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip 2<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Value classes introduce a truly new type, contrary to type aliases which only introduce an alternative name (alias) for an existing type.</div>
+        </div>
+    </div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip 3<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Value classes are compiled to their underlying type.</div>
+        </div>
+    </div>
+<p>If you&rsquo;d like to learn more about <code>value class</code>, you can check <a href="https://kotlinlang.org/docs/inline-classes.html#inline-classes-and-delegation" target="_blank" rel="noopener noreffer ">here</a>.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-03-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://mbt925.github.io/posts/typealias_vs_value_class/" data-title="Typealias vs. inline value class"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://mbt925.github.io/posts/typealias_vs_value_class/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://mbt925.github.io/posts/typealias_vs_value_class/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://mbt925.github.io/posts/typealias_vs_value_class/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/runtest_simplified/" class="prev" rel="prev" title="A smarter way of testing Coroutines with runTest"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>A smarter way of testing Coroutines with runTest</a></div>
+</div>
+</article></div>
+            </main><footer class="footer" onload="showAge()">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = (function () {
+                showAge()
+            });
+        </script>
+
+        <script defer language="javascript" type="text/javascript"  src="/js/age.js"></script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

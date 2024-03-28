@@ -3,9 +3,21 @@
         <title>Mohsen Biglari</title>
         <link>http://mbt925.github.io/</link>
         <description>Mohsen Biglari&#39;s personal website</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 08 Mar 2024 23:23:25 &#43;0100</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 26 Mar 2024 20:28:25 &#43;0100</lastBuildDate>
             <atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Typealias vs. inline value class</title>
+    <link>http://mbt925.github.io/posts/typealias_vs_value_class/</link>
+    <pubDate>Tue, 26 Mar 2024 20:28:25 &#43;0100</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/typealias_vs_value_class/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/typealias_vs_value_class.webp" referrerpolicy="no-referrer">
+            </div>Normally, Typealias and inline value class (which I&rsquo;ll refer to as value class throughout this text) are utilized for different purposes. However, developers might occasionally use one for the other. Let’s explore some examples and clarify the differences.
+Typealias kotlinlang.org does a pretty good job explaining Typealias:
+Type aliases provide alternative names for existing types. If the type name is too long you can introduce a different shorter name and use the new one instead.]]></description>
+</item>
+<item>
     <title>A smarter way of testing Coroutines with runTest</title>
     <link>http://mbt925.github.io/posts/runtest_simplified/</link>
     <pubDate>Fri, 08 Mar 2024 23:23:25 &#43;0100</pubDate>
