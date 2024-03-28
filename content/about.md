@@ -11,7 +11,3 @@ I love programming, and I have some experiences with some programming languages 
 In 2010, I earned my B.Sc. degree in Software Engineering, followed by the completion of my M.Sc. degree in 2012, both from the [University of Kashan](https://kashanu.ac.ir/en). Subsequently, I attained my Ph.D. in Computer Science in 2017 from [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/en/).
 
 Since September 2018, I served as an assistant professor at [Shahrood University of Technology (SUT)](http://shahroodut.ac.ir/en/) for around two years. During this time, I found myself reevaluating my professional goals, eventually leading me to embark on a new journey with [Tomorrow Bank](http://tomorrow.one/). The company's compelling mission and vision resonated with me, aligning with my desire to contribute to a better tomorrow for everyone. After dedicating three years to this meaningful pursuit, I eagerly transitioned to the next chapter of my career at [Wolt enterprise](https://wolt.com/). 
-
-{{< line_break >}}
-
-{{< image src="/images/logotrans.png" caption="MBT">}}
