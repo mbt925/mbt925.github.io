@@ -6,8 +6,15 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Apr 2022 00:07:02 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2024 00:01:02 +0100</lastBuildDate>
     <atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Complication Set</title>
+      <link>http://mbt925.github.io/projects/complications_set/</link>
+      <pubDate>Mon, 01 Apr 2024 00:01:02 +0100</pubDate>
+      <guid>http://mbt925.github.io/projects/complications_set/</guid>
+      <description>&#xA;Installing numerous apps solely to access various complications can be tedious. Complication Sets offers a collection of convenient complications for your Wear OS smartwatch.&#xA;If you require a specific complication, feel free to let me know.&#xA;🔗 Google Play&#xA;Privacy Policy Complication Sets app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.&#xA;Screenshots </description>
+    </item>
     <item>
       <title>Weasy Launcher</title>
       <link>http://mbt925.github.io/projects/weasy_launcher/</link>

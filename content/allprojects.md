@@ -19,6 +19,9 @@ A circular launcher as a replacement for Wear OS smartwatches' default launcher.
 ### ![wear persian calendar icon](/images/projects/wear_persian_calendar/icon.png) [Wear Persian Calendar](/projects/wear_persian_calendar)
 A compact persian calendar for Wear OS smartwatches.
 
+### ![complications_set_icon](/images/projects/complications_set/icon.png) [Complications Set](/projects/complications_set)
+A set of handy complications for Wear OS smartwatches.
+
 ### ![yolo icon](/images/projects/yolo.png) Realtime Multi Object Detector
 A Java app which processes a 800x600 image in 8ms using a Quadro P5000 GPU. The app is developed using DeepLearning4J with transfer learning on pre-trained Tiny-YOLO v2. A custom dataset has been prepared for the system.
 
