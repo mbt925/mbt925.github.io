@@ -3,9 +3,19 @@
         <title>Mohsen Biglari</title>
         <link>http://mbt925.github.io/</link>
         <description>Mohsen Biglari&#39;s personal website</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 01 Apr 2024 00:01:02 &#43;0100</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 19 May 2024 18:44:05 &#43;0200</lastBuildDate>
             <atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Data flow vs. dependency direction</title>
+    <link>http://mbt925.github.io/posts/data_flow_vs_dependency_direction/</link>
+    <pubDate>Sun, 19 May 2024 18:44:05 &#43;0200</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/data_flow_vs_dependency_direction/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/data_flow_vs_dependency_direction.webp" referrerpolicy="no-referrer">
+            </div>Imagine you&rsquo;re building a complex application with several layers: a presentation layer for user interactions, a domain layer for business rules, and a data layer for managing data. One common pitfall developers face is confusing data flow direction with dependency direction, often assuming they must be the same. But here’s a crucial question: Can dependency direction differ from data flow direction? Yes, it can, and knowing how is vital for creating a robust architecture.]]></description>
+</item>
+<item>
     <title>Typealias vs. inline value class</title>
     <link>http://mbt925.github.io/posts/typealias_vs_value_class/</link>
     <pubDate>Tue, 26 Mar 2024 20:28:25 &#43;0100</pubDate>

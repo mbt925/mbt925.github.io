@@ -2,10 +2,11 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://mbt925.github.io/posts/data_flow_vs_dependency_direction/</loc><lastmod>2024-05-19T18:44:05&#43;02:00</lastmod></url><url>
+            <loc>http://mbt925.github.io/</loc><lastmod>2024-05-19T18:44:05&#43;02:00</lastmod></url><url>
+            <loc>http://mbt925.github.io/posts/</loc><lastmod>2024-05-19T18:44:05&#43;02:00</lastmod></url><url>
             <loc>http://mbt925.github.io/projects/complications_set/</loc><lastmod>2024-04-01T00:01:02&#43;01:00</lastmod></url><url>
-            <loc>http://mbt925.github.io/</loc><lastmod>2024-04-01T00:01:02&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/projects/</loc><lastmod>2024-04-01T00:01:02&#43;01:00</lastmod></url><url>
-            <loc>http://mbt925.github.io/posts/</loc><lastmod>2024-03-26T20:28:25&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/posts/typealias_vs_value_class/</loc><lastmod>2024-03-26T20:28:25&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/posts/runtest_simplified/</loc><lastmod>2024-03-08T23:23:25&#43;01:00</lastmod></url><url>
             <loc>http://mbt925.github.io/posts/handy_coroutine_dispatcher_extension/</loc><lastmod>2024-03-02T23:23:25&#43;01:00</lastmod></url><url>
