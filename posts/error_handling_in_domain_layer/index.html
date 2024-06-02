@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>The domain layer and error handling - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="The domain layer and error handling" />
+<meta property="og:description" content="The domain layer is the heart of your application, where business rules are defined and enforced. One critical aspect of these rules is error handling, which must be as detailed as the business requirements dictate. It&rsquo;s the domain layer that determines the granularity of error handling, ensuring that errors are managed appropriately based on the specific needs of the business.
+Let&rsquo;s consider the following example:
+1 2 3 4 5 data class Data(val a: Int, val b: Int) interface Repository { fun getData(): Data?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://mbt925.github.io/posts/error_handling_in_domain_layer/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-06-01T22:23:53+02:00" />
+<meta property="article:modified_time" content="2024-06-01T22:23:53+02:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="The domain layer and error handling"/>
+<meta name="twitter:description" content="The domain layer is the heart of your application, where business rules are defined and enforced. One critical aspect of these rules is error handling, which must be as detailed as the business requirements dictate. It&rsquo;s the domain layer that determines the granularity of error handling, ensuring that errors are managed appropriately based on the specific needs of the business.
+Let&rsquo;s consider the following example:
+1 2 3 4 5 data class Data(val a: Int, val b: Int) interface Repository { fun getData(): Data?"/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/error_handling_in_domain_layer/" /><link rel="prev" href="http://mbt925.github.io/posts/data_flow_vs_dependency_direction/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "The domain layer and error handling",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/mbt925.github.io\/posts\/error_handling_in_domain_layer\/"
+        },"genre": "posts","wordcount":  863 ,
+        "url": "http:\/\/mbt925.github.io\/posts\/error_handling_in_domain_layer\/","datePublished": "2024-06-01T22:23:53+02:00","dateModified": "2024-06-01T22:23:53+02:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">The domain layer and error handling</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-06-01">2024-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;863 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#tools-for-error-handling-you-dont-need">Tools for error handling you don&rsquo;t need!</a></li>
+    <li><a href="#defining-business-rules">Defining business rules</a>
+      <ul>
+        <li><a href="#brewing-coffee">Brewing coffee</a></li>
+        <li><a href="#grinding-beans">Grinding beans</a></li>
+        <li><a href="#fetching-beans">Fetching beans</a></li>
+        <li><a href="#fetching-water">Fetching water</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementing-coffee-machine">Implementing coffee machine</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>The domain layer is the heart of your application, where business rules are defined and enforced.
+One critical aspect of these rules is error handling, which must be as detailed as the business requirements dictate.
+It&rsquo;s the domain layer that determines the granularity of error handling, ensuring that errors are managed
+appropriately based on the specific needs of the business.</p>
+<p>Let&rsquo;s consider the following example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">data</span> <span class="k">class</span> <span class="nc">Data</span><span class="p">(</span><span class="k">val</span> <span class="py">a</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="k">val</span> <span class="py">b</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Repository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">getData</span><span class="p">():</span> <span class="n">Data</span><span class="p">?</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>In this case, the domain layer doesn&rsquo;t concern itself with why the <code>getData()</code> function fails to fetch <code>Data</code>.
+The specific reasons for the failure—whether due to network issues or other problems—are not its concern.
+Depending on the type of product, this decision might impact the user experience,
+often resulting in a generic error message displayed to the user.</p>
+<h2 id="tools-for-error-handling-you-dont-need">Tools for error handling you don&rsquo;t need!</h2>
+<p>While the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/" target="_blank" rel="noopener noreffer ">kotlin.Result</a> class is a popular choice
+for wrapping errors, and <a href="https://arrow-kt.io/" target="_blank" rel="noopener noreffer ">Arrow</a> offers extensive tools for this purpose,
+these tools are not strictly necessary. Kotlin&rsquo;s sealed interfaces can provide comprehensive error handling capabilities.
+Let&rsquo;s demonstrate this with a coffee machine example that uses various ingredients:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Beans</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Powder</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Water</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Coffee</span><span class="p">(</span><span class="n">water</span><span class="p">:</span> <span class="n">Water</span><span class="p">,</span> <span class="n">powder</span><span class="p">:</span> <span class="n">Powder</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="defining-business-rules">Defining business rules</h2>
+<p>Let&rsquo;s naively assume the machine works like the following:</p>
+<ol>
+<li>Fetch water.</li>
+<li>Fetch beans.</li>
+<li>Grind beans into powder.</li>
+<li>Brew coffee using the powder and water.</li>
+</ol>
+<p>Each step can fail in different ways. Let&rsquo;s see how the domain layer can define the coffee machine&rsquo;s behavior
+together with the expected errors.</p>
+<h3 id="brewing-coffee">Brewing coffee</h3>
+<p>Starting with the brewing process, the <code>BrewResult</code> can be either <code>Success</code> or <code>Failure</code>,
+with Failure having specific cases like <code>InsufficientPowder</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Repository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">brew</span><span class="p">(</span><span class="n">powder</span><span class="p">:</span> <span class="n">Powder</span><span class="p">,</span> <span class="n">water</span><span class="p">:</span> <span class="n">Water</span><span class="p">):</span> <span class="n">BrewResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">sealed</span> <span class="k">interface</span> <span class="nc">BrewResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Success</span><span class="p">(</span><span class="k">val</span> <span class="py">coffee</span><span class="p">:</span> <span class="n">Coffee</span><span class="p">)</span> <span class="p">:</span> <span class="n">BrewResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">sealed</span> <span class="k">interface</span> <span class="nc">Failure</span> <span class="p">:</span> <span class="n">BrewResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">data</span> <span class="k">object</span> <span class="nc">InsufficientPowder</span> <span class="p">:</span> <span class="n">Failure</span>
+</span></span><span class="line"><span class="cl">        <span class="k">data</span> <span class="k">object</span> <span class="nc">InsufficientWater</span> <span class="p">:</span> <span class="n">Failure</span>
+</span></span><span class="line"><span class="cl">        <span class="k">data</span> <span class="k">object</span> <span class="nc">BrewerBroken</span> <span class="p">:</span> <span class="n">Failure</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="grinding-beans">Grinding beans</h3>
+<p>Next, we handle the grinding process. Notice how <code>GrindBeansResult.Failure</code> extends <code>BrewResult.Failure</code>.
+This is logical because a failure in grinding means a failure in brewing—no powder means no coffee.
+However, <code>GrindBeansResult.Success</code> is not of type <code>BrewResult.Success</code>,
+as grinding is just one step in making a cup of coffee. The same pattern is used with the following definitions as well.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Repository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">grindBeans</span><span class="p">(</span><span class="n">beans</span><span class="p">:</span> <span class="n">Beans</span><span class="p">):</span> <span class="n">GrindBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">brew</span><span class="p">(</span><span class="n">powder</span><span class="p">:</span> <span class="n">Powder</span><span class="p">,</span> <span class="n">water</span><span class="p">:</span> <span class="n">Water</span><span class="p">):</span> <span class="n">BrewResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">sealed</span> <span class="k">interface</span> <span class="nc">GrindBeansResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Success</span><span class="p">(</span><span class="k">val</span> <span class="py">powder</span><span class="p">:</span> <span class="n">Powder</span><span class="p">)</span> <span class="p">:</span> <span class="n">GrindBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">sealed</span> <span class="k">interface</span> <span class="nc">Failure</span> <span class="p">:</span> <span class="n">GrindBeansResult</span><span class="p">,</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="n">Failure</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">data</span> <span class="k">object</span> <span class="nc">GrinderBroken</span> <span class="p">:</span> <span class="n">Failure</span>
+</span></span><span class="line"><span class="cl">        <span class="k">data</span> <span class="k">object</span> <span class="nc">InsufficientBeans</span> <span class="p">:</span> <span class="n">Failure</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="fetching-beans">Fetching beans</h3>
+<p>The business expects the following from the fetch beans step. The only reason <code>GetBeansResult</code> may end up
+in a failure is running out of beans - <code>GetBeansResult.Empty</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Repository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">getBeans</span><span class="p">():</span> <span class="n">GetBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">grindBeans</span><span class="p">(</span><span class="n">beans</span><span class="p">:</span> <span class="n">Beans</span><span class="p">):</span> <span class="n">GrindBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">brew</span><span class="p">(</span><span class="n">powder</span><span class="p">:</span> <span class="n">Powder</span><span class="p">,</span> <span class="n">water</span><span class="p">:</span> <span class="n">Water</span><span class="p">):</span> <span class="n">BrewResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">sealed</span> <span class="k">interface</span> <span class="nc">GetBeansResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Success</span><span class="p">(</span><span class="k">val</span> <span class="py">beans</span><span class="p">:</span> <span class="n">Beans</span><span class="p">)</span> <span class="p">:</span> <span class="n">GetBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">data</span> <span class="k">object</span> <span class="nc">Empty</span> <span class="p">:</span> <span class="n">GetBeansResult</span><span class="p">,</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="n">Failure</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="fetching-water">Fetching water</h3>
+<p>Similarly, fetching water can fail with no water available-<code>GetWaterResult.Empty</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">Repository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">getWater</span><span class="p">():</span> <span class="n">GetWaterResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">getBeans</span><span class="p">():</span> <span class="n">GetBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">grindBeans</span><span class="p">(</span><span class="n">beans</span><span class="p">:</span> <span class="n">Beans</span><span class="p">):</span> <span class="n">GrindBeansResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">brew</span><span class="p">(</span><span class="n">powder</span><span class="p">:</span> <span class="n">Powder</span><span class="p">,</span> <span class="n">water</span><span class="p">:</span> <span class="n">Water</span><span class="p">):</span> <span class="n">BrewResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">sealed</span> <span class="k">interface</span> <span class="nc">GetWaterResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">Success</span><span class="p">(</span><span class="k">val</span> <span class="py">water</span><span class="p">:</span> <span class="n">Water</span><span class="p">)</span> <span class="p">:</span> <span class="n">GetWaterResult</span>
+</span></span><span class="line"><span class="cl">    <span class="k">data</span> <span class="k">object</span> <span class="nc">Empty</span> <span class="p">:</span> <span class="n">GetWaterResult</span><span class="p">,</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="n">Failure</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="implementing-coffee-machine">Implementing coffee machine</h2>
+<p>These definitions convey all the necessary information about <em>what</em> the coffee machine needs to function.
+From the user&rsquo;s perspective, making coffee is as simple as pushing a button. Here&rsquo;s the interface for our coffee machine:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">CoffeeMachine</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">brew</span><span class="p">():</span> <span class="n">BrewResult</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Now, let&rsquo;s implement the <code>CoffeeMachine</code> leveraging the flexibility of sealed interfaces for error handling:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CoffeeMachineImpl</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">repository</span><span class="p">:</span> <span class="n">Repository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">CoffeeMachine</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">brew</span><span class="p">():</span> <span class="n">BrewResult</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">water</span> <span class="p">=</span> <span class="k">when</span><span class="p">(</span><span class="k">val</span> <span class="py">getWaterResult</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">getWater</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">is</span> <span class="nc">GetWaterResult</span><span class="p">.</span><span class="n">Success</span> <span class="o">-&gt;</span> <span class="n">getWaterResult</span><span class="p">.</span><span class="n">water</span>
+</span></span><span class="line"><span class="cl">            <span class="k">is</span> <span class="nc">GetWaterResult</span><span class="p">.</span><span class="n">Empty</span> <span class="o">-&gt;</span> <span class="k">return</span> <span class="n">getWaterResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">beans</span> <span class="p">=</span> <span class="k">when</span> <span class="p">(</span><span class="k">val</span> <span class="py">getBeansResult</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">getBeans</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">is</span> <span class="nc">GetBeansResult</span><span class="p">.</span><span class="n">Success</span> <span class="o">-&gt;</span> <span class="n">getBeansResult</span><span class="p">.</span><span class="n">beans</span>
+</span></span><span class="line"><span class="cl">            <span class="k">is</span> <span class="nc">GetBeansResult</span><span class="p">.</span><span class="n">Empty</span> <span class="o">-&gt;</span> <span class="k">return</span> <span class="n">getBeansResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">powder</span> <span class="p">=</span> <span class="k">when</span> <span class="p">(</span><span class="k">val</span> <span class="py">grindBeansResult</span> <span class="p">=</span> <span class="n">repository</span><span class="p">.</span><span class="n">grindBeans</span><span class="p">(</span><span class="n">beans</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">is</span> <span class="nc">GrindBeansResult</span><span class="p">.</span><span class="n">Success</span> <span class="o">-&gt;</span> <span class="n">grindBeansResult</span><span class="p">.</span><span class="n">powder</span>
+</span></span><span class="line"><span class="cl">            <span class="k">is</span> <span class="nc">GrindBeansResult</span><span class="p">.</span><span class="n">Failure</span> <span class="o">-&gt;</span> <span class="k">return</span> <span class="n">grindBeansResult</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">repository</span><span class="p">.</span><span class="n">brew</span><span class="p">(</span><span class="n">powder</span><span class="p">,</span> <span class="n">water</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>In this implementation, lines #7, #11, and #15 directly return the failure.
+This approach avoids nested checks or type mappings. Moreover, the caller benefits from a detailed hierarchy of errors,
+clearly indicating where the error occurred:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">when</span> <span class="p">(</span><span class="k">val</span> <span class="py">brewResult</span> <span class="p">=</span> <span class="n">coffeeMachine</span><span class="p">.</span><span class="n">brew</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="n">Success</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;Enjoy your </span><span class="si">${brewResult.coffee}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="nc">Failure</span><span class="p">.</span><span class="n">BrewerBroken</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;Brewer is broken&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="nc">Failure</span><span class="p">.</span><span class="n">InsufficientWater</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;You did not use enough water&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">BrewResult</span><span class="p">.</span><span class="nc">Failure</span><span class="p">.</span><span class="n">InsufficientPowder</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;You did not use enough powder&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">GetWaterResult</span><span class="p">.</span><span class="n">Empty</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;Sorry, we&#39;re out of water&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">GetBeansResult</span><span class="p">.</span><span class="n">Empty</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;Sorry, we&#39;re out of beans&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">GrindBeansResult</span><span class="p">.</span><span class="nc">Failure</span><span class="p">.</span><span class="n">GrinderBroken</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;Sorry, your grinder seems to be broken&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">is</span> <span class="nc">GrindBeansResult</span><span class="p">.</span><span class="nc">Failure</span><span class="p">.</span><span class="n">InsufficientBeans</span> <span class="o">-&gt;</span> <span class="n">println</span><span class="p">(</span><span class="s2">&#34;Sorry, you need more beans to create powder&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-06-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://mbt925.github.io/posts/error_handling_in_domain_layer/" data-title="The domain layer and error handling"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://mbt925.github.io/posts/error_handling_in_domain_layer/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://mbt925.github.io/posts/error_handling_in_domain_layer/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://mbt925.github.io/posts/error_handling_in_domain_layer/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/data_flow_vs_dependency_direction/" class="prev" rel="prev" title="Data flow vs. dependency direction"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Data flow vs. dependency direction</a></div>
+</div>
+</article></div>
+            </main><footer class="footer" onload="showAge()">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = (function () {
+                showAge()
+            });
+        </script>
+
+        <script defer language="javascript" type="text/javascript"  src="/js/age.js"></script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
