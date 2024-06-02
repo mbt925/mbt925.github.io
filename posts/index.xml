@@ -9,7 +9,9 @@
     <pubDate>Sat, 01 Jun 2024 22:23:53 &#43;0200</pubDate>
     <author>mbt925</author>
     <guid>http://mbt925.github.io/posts/error_handling_in_domain_layer/</guid>
-    <description><![CDATA[The domain layer is the heart of your application, where business rules are defined and enforced. One critical aspect of these rules is error handling, which must be as detailed as the business requirements dictate. It&rsquo;s the domain layer that determines the granularity of error handling, ensuring that errors are managed appropriately based on the specific needs of the business.
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/error_handling_in_domain_layer.webp" referrerpolicy="no-referrer">
+            </div>The domain layer is the heart of your application, where business rules are defined and enforced. One critical aspect of these rules is error handling, which must be as detailed as the business requirements dictate. It&rsquo;s the domain layer that determines the granularity of error handling, ensuring that errors are managed appropriately based on the specific needs of the business.
 Let&rsquo;s consider the following example:
 1 2 3 4 5 data class Data(val a: Int, val b: Int) interface Repository { fun getData(): Data?]]></description>
 </item>

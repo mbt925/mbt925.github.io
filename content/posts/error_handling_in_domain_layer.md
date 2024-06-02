@@ -2,6 +2,8 @@
 title: "The domain layer and error handling"
 date: 2024-06-01T22:23:53+02:00
 draft: false
+featuredImage: "/images/blog/error_handling_in_domain_layer.webp"
+featuredImagePreview: "/images/blog/error_handling_in_domain_layer.webp"
 ---
 
 The domain layer is the heart of your application, where business rules are defined and enforced.
