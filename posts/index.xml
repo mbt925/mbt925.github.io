@@ -3,7 +3,19 @@
         <title>All Posts - Mohsen Biglari</title>
         <link>http://mbt925.github.io/posts/</link>
         <description>All Posts | Mohsen Biglari</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 01 Jun 2024 22:23:53 &#43;0200</lastBuildDate><atom:link href="http://mbt925.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 08 Sep 2024 22:40:09 &#43;0200</lastBuildDate><atom:link href="http://mbt925.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Manage your SDKs like a pro</title>
+    <link>http://mbt925.github.io/posts/sdk_man/</link>
+    <pubDate>Sun, 08 Sep 2024 22:40:09 &#43;0200</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/sdk_man/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/manage_your_sdks_like_a_pro.webp" referrerpolicy="no-referrer">
+            </div>For anyone setting up Java, Kotlin, or Spring SDKs manually, the process of tweaking environment variables like HOME and PATH might feel cumbersome. Fortunately, there’s a much simpler solution: SDKMAN!.
+I&rsquo;ve been happily using SDKMAN! for a while, and it has made managing SDKs a breeze. With SDKMAN!, installing Java, changing the default Kotlin version, or updating to the latest Spring Boot version is a one-liner.
+Installing SDKMAN! Getting SDKMAN! up and running on a UNIX-based system is straightforward.]]></description>
+</item>
+<item>
     <title>The domain layer and error handling</title>
     <link>http://mbt925.github.io/posts/error_handling_in_domain_layer/</link>
     <pubDate>Sat, 01 Jun 2024 22:23:53 &#43;0200</pubDate>

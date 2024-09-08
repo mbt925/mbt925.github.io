@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Manage your SDKs like a pro - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="Manage your SDKs like a pro" />
+<meta property="og:description" content="For anyone setting up Java, Kotlin, or Spring SDKs manually, the process of tweaking environment variables like HOME and PATH might feel cumbersome. Fortunately, there’s a much simpler solution: SDKMAN!.
+I&rsquo;ve been happily using SDKMAN! for a while, and it has made managing SDKs a breeze. With SDKMAN!, installing Java, changing the default Kotlin version, or updating to the latest Spring Boot version is a one-liner.
+Installing SDKMAN! Getting SDKMAN! up and running on a UNIX-based system is straightforward." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://mbt925.github.io/posts/sdk_man/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-08T22:40:09+02:00" />
+<meta property="article:modified_time" content="2024-09-08T22:40:09+02:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Manage your SDKs like a pro"/>
+<meta name="twitter:description" content="For anyone setting up Java, Kotlin, or Spring SDKs manually, the process of tweaking environment variables like HOME and PATH might feel cumbersome. Fortunately, there’s a much simpler solution: SDKMAN!.
+I&rsquo;ve been happily using SDKMAN! for a while, and it has made managing SDKs a breeze. With SDKMAN!, installing Java, changing the default Kotlin version, or updating to the latest Spring Boot version is a one-liner.
+Installing SDKMAN! Getting SDKMAN! up and running on a UNIX-based system is straightforward."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/sdk_man/" /><link rel="prev" href="http://mbt925.github.io/posts/error_handling_in_domain_layer/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Manage your SDKs like a pro",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/mbt925.github.io\/posts\/sdk_man\/"
+        },"genre": "posts","wordcount":  393 ,
+        "url": "http:\/\/mbt925.github.io\/posts\/sdk_man\/","datePublished": "2024-09-08T22:40:09+02:00","dateModified": "2024-09-08T22:40:09+02:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Manage your SDKs like a pro</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-09-08">2024-09-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;393 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/manage_your_sdks_like_a_pro.webp"
+        data-srcset="/images/blog/manage_your_sdks_like_a_pro.webp, /images/blog/manage_your_sdks_like_a_pro.webp 1.5x, /images/blog/manage_your_sdks_like_a_pro.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/manage_your_sdks_like_a_pro.webp"
+        title="/images/blog/manage_your_sdks_like_a_pro.webp" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#installing-sdkman">Installing SDKMAN!</a></li>
+    <li><a href="#managing-sdks">Managing SDKs</a></li>
+    <li><a href="#listing-available-versions">Listing Available Versions</a></li>
+    <li><a href="#changing-the-default">Changing the default</a></li>
+    <li><a href="#additional-features">Additional Features</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>For anyone setting up Java, Kotlin, or Spring SDKs manually, the process of tweaking environment variables like <code>HOME</code>
+and <code>PATH</code> might feel cumbersome. Fortunately, there’s a much simpler solution: <a href="https://sdkman.io/" target="_blank" rel="noopener noreffer ">SDKMAN!</a>.</p>
+<p>I&rsquo;ve been happily using SDKMAN! for a while, and it has made managing SDKs a breeze. With
+SDKMAN!, installing Java, changing the default Kotlin version, or updating to the latest Spring Boot version is a
+one-liner.</p>
+<h2 id="installing-sdkman">Installing SDKMAN!</h2>
+<p>Getting SDKMAN! up and running on a UNIX-based system is straightforward. It supports macOS, Linux, and even Windows (
+via WSL). Plus, it&rsquo;s compatible with both Bash and ZSH shells.</p>
+<p>To get started, open a new terminal and run the following command:</p>
+<blockquote>
+<p>curl -s &ldquo;<a href="https://get.sdkman.io" target="_blank" rel="noopener noreffer ">https://get.sdkman.io</a>&rdquo; | bash</p>
+</blockquote>
+<p>Once the installation is complete, run the following in the same or a new terminal session:</p>
+<blockquote>
+<p>source &ldquo;$HOME/.sdkman/bin/sdkman-init.sh&rdquo;</p>
+</blockquote>
+<h2 id="managing-sdks">Managing SDKs</h2>
+<p>Now, you can install the latest stable version of your preferred SDK (say, Java) by running the following command:</p>
+<blockquote>
+<p>sdk install java</p>
+</blockquote>
+<p>It will prompt you to set this version as the default, and just like that—no need to fiddle with <code>HOME</code> or <code>PATH</code>
+variables.</p>
+<h2 id="listing-available-versions">Listing Available Versions</h2>
+<p>Want to see all available versions of a specific SDK, like Kotlin? It’s just as easy:</p>
+<blockquote>
+<p>sdk list kotlin</p>
+</blockquote>
+<p>This command will display a list of all available, local, installed, and currently in-use versions of Kotlin.</p>
+<pre tabindex="0"><code>================================================================================
+Available Kotlin Versions
+================================================================================
+ &gt; * 2.0.20              1.5.21              1.3.10              1.1.4          
+     2.0.10              1.5.10              1.3.0               1.1.3-2        
+     2.0.0               1.5.0               1.2.71              1.1.3          
+     1.9.24              1.4.31              1.2.70              1.1.2-5        
+     1.9.23              1.4.30              1.2.61              1.1.2-2        
+     1.9.22              1.4.21              1.2.60              1.1.2          
+     1.9.21              1.4.20              1.2.51              1.1.1          
+     1.9.20              1.4.10              1.2.50              1.1            
+     1.9.10              1.4.0               1.2.41              1.0.7          
+     1.9.0               1.3.72              1.2.40              1.0.6          
+     1.8.20              1.3.71              1.2.31              1.0.5-2        
+     1.8.0               1.3.70              1.2.30              1.0.5          
+     1.7.21              1.3.61              1.2.21              1.0.4          
+     1.7.20              1.3.60              1.2.20              1.0.3          
+     1.7.10              1.3.50              1.2.10              1.0.2          
+     1.7.0               1.3.41              1.2.0               1.0.1-2        
+     1.6.21              1.3.40              1.1.61              1.0.1-1        
+     1.6.20              1.3.31              1.1.60              1.0.1          
+     1.6.10              1.3.30              1.1.51              1.0.0          
+     1.6.0               1.3.21              1.1.50                             
+     1.5.31              1.3.20              1.1.4-3                            
+     1.5.30              1.3.11              1.1.4-2                            
+
+================================================================================
++ - local version
+* - installed
+&gt; - currently in use
+================================================================================
+</code></pre><h2 id="changing-the-default">Changing the default</h2>
+<p>Need to switch to a different version? No problem. To set Kotlin 2.0.0 as the default, just run:</p>
+<blockquote>
+<p>sdk default kotlin 2.0.0</p>
+</blockquote>
+<h2 id="additional-features">Additional Features</h2>
+<p>SDKMAN! also includes a variety of useful features, such as offline mode, self-update, and the ability to set SDK
+versions on a per-project basis.
+It’s a handy tool that saves time and effort—give it a try and simplify your SDK management!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-09-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://mbt925.github.io/posts/sdk_man/" data-title="Manage your SDKs like a pro"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://mbt925.github.io/posts/sdk_man/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://mbt925.github.io/posts/sdk_man/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://mbt925.github.io/posts/sdk_man/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/error_handling_in_domain_layer/" class="prev" rel="prev" title="The domain layer and error handling"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>The domain layer and error handling</a></div>
+</div>
+</article></div>
+            </main><footer class="footer" onload="showAge()">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = (function () {
+                showAge()
+            });
+        </script>
+
+        <script defer language="javascript" type="text/javascript"  src="/js/age.js"></script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
