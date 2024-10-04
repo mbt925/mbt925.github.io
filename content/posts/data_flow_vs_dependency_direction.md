@@ -8,7 +8,7 @@ featuredImagePreview: "/images/blog/data_flow_vs_dependency_direction.webp"
 
 Imagine you're building a complex application with several layers: a presentation layer for user interactions, a domain layer for business rules, and a data layer for managing data. One common pitfall developers face is confusing data flow direction with dependency direction, often assuming they must be the same. But here’s a crucial question: Can dependency direction differ from data flow direction? Yes, it can, and knowing how is vital for creating a robust architecture.
 
-## Defining Stability
+## Defining stability
 To understand this better, let's delve into the concept of *stability*. In his book "Clean Architecture: A Craftsman's Guide to Software Structure and Design," Uncle Bob defines stability as follows:
 
 > Stability refers to the likelihood that a software component will change. More specifically, it is about how resistant a component is to change, where a stable component is one that is difficult to change.
@@ -21,7 +21,7 @@ Picture a massive, intricate machine. If a part is large, complex, and has many 
 
 For our discussion, we’ll focus on point 4: dependency.
 
-## Architecture Layers
+## Architecture layers
 Let's assume our architecture has three layers: presentation, domain, and data.
 
 - **Presentation Layer**: Handles all user interactions.
@@ -36,7 +36,7 @@ In this setup, changes in the presentation or data layers don’t affect the dom
 
 {{< image src="/images/blog/data_flow_vs_dependency_direction/data_flow_direction.webp">}}
 
-## Maintaining Ideal Dependency Direction
+## Maintaining ideal dependency direction
 So, how can we ensure an ideal dependency direction regardless of the data flow direction? Enter the **Dependency Inversion Principle**. Let’s explore this with a practical example. Consider a simple `Repository` class that fetches data and returns a domain model:
  
 {{< highlight kotlin "linenos=table">}}

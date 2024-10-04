@@ -32,7 +32,7 @@ Now, you can install the latest stable version of your preferred SDK (say, Java)
 It will prompt you to set this version as the default, and just like that—no need to fiddle with `HOME` or `PATH`
 variables.
 
-## Listing Available Versions
+## Listing available versions
 
 Want to see all available versions of a specific SDK, like Kotlin? It’s just as easy:
 > sdk list kotlin
@@ -78,7 +78,7 @@ Available Kotlin Versions
 Need to switch to a different version? No problem. To set Kotlin 2.0.0 as the default, just run:
 > sdk default kotlin 2.0.0
 
-## Additional Features
+## Additional features
 
 SDKMAN! also includes a variety of useful features, such as offline mode, self-update, and the ability to set SDK
 versions on a per-project basis.
