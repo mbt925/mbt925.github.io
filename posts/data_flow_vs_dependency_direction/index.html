@@ -85,13 +85,13 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#defining-stability">Defining Stability</a></li>
-    <li><a href="#architecture-layers">Architecture Layers</a></li>
-    <li><a href="#maintaining-ideal-dependency-direction">Maintaining Ideal Dependency Direction</a></li>
+    <li><a href="#defining-stability">Defining stability</a></li>
+    <li><a href="#architecture-layers">Architecture layers</a></li>
+    <li><a href="#maintaining-ideal-dependency-direction">Maintaining ideal dependency direction</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>Imagine you&rsquo;re building a complex application with several layers: a presentation layer for user interactions, a domain layer for business rules, and a data layer for managing data. One common pitfall developers face is confusing data flow direction with dependency direction, often assuming they must be the same. But here’s a crucial question: Can dependency direction differ from data flow direction? Yes, it can, and knowing how is vital for creating a robust architecture.</p>
-<h2 id="defining-stability">Defining Stability</h2>
+<h2 id="defining-stability">Defining stability</h2>
 <p>To understand this better, let&rsquo;s delve into the concept of <em>stability</em>. In his book &ldquo;Clean Architecture: A Craftsman&rsquo;s Guide to Software Structure and Design,&rdquo; Uncle Bob defines stability as follows:</p>
 <blockquote>
 <p>Stability refers to the likelihood that a software component will change. More specifically, it is about how resistant a component is to change, where a stable component is one that is difficult to change.</p>
@@ -104,7 +104,7 @@
 <li><strong>Many other components depend on it</strong></li>
 </ol>
 <p>For our discussion, we’ll focus on point 4: dependency.</p>
-<h2 id="architecture-layers">Architecture Layers</h2>
+<h2 id="architecture-layers">Architecture layers</h2>
 <p>Let&rsquo;s assume our architecture has three layers: presentation, domain, and data.</p>
 <ul>
 <li><strong>Presentation Layer</strong>: Handles all user interactions.</li>
@@ -131,7 +131,7 @@
             data-sizes="auto"
             alt="/images/blog/data_flow_vs_dependency_direction/data_flow_direction.webp" />
     </a>
-<h2 id="maintaining-ideal-dependency-direction">Maintaining Ideal Dependency Direction</h2>
+<h2 id="maintaining-ideal-dependency-direction">Maintaining ideal dependency direction</h2>
 <p>So, how can we ensure an ideal dependency direction regardless of the data flow direction? Enter the <strong>Dependency Inversion Principle</strong>. Let’s explore this with a practical example. Consider a simple <code>Repository</code> class that fetches data and returns a domain model:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

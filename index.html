@@ -65,6 +65,20 @@
         alt="/images/profile.jpg"
         title="/images/profile.jpg" /></a></div><h1 class="home-title">Mohsen Biglari</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/mbt925" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/mbt925" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:mbt925%20at%20gmail%20dot%20com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+            <a href="/posts/test_fixtures/"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/test_fixtures.webp"
+        data-srcset="/images/blog/test_fixtures.webp, /images/blog/test_fixtures.webp 1.5x, /images/blog/test_fixtures.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/test_fixtures.webp"
+        title="/images/blog/test_fixtures.webp" /></a>
+        </div><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/test_fixtures/">Boosting test reusability with test fixtures</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-10-04">2024-10-04</time></span></div><div class="content">With this long-awaited issue now resolved, the Android Gradle Plugin (AGP) properly supports testFixtures source sets. This means you no longer need to create a separate module to expose test fixtures or include them in the main source set.
+Test fixtures The testFixtures source set is particularly useful for improving test code reusability. It provides developers with a structured way to create and share test-related code across multiple test suites (e.</div><div class="post-footer">
+        <a href="/posts/test_fixtures/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/sdk_man/"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -137,22 +151,15 @@ Type aliases provide alternative names for existing types. If the type name is t
 runTest You&rsquo;re probably used runTest before. Let me quote kotlinlang.org:
 Executes testBody as a test in a new coroutine, returning TestResult. On JVM and Native, this function behaves similarly to runBlocking, with the difference that the code that it runs will skip delays.</div><div class="post-footer">
         <a href="/posts/runtest_simplified/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
-            <a href="/posts/handy_coroutine_dispatcher_extension/"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/blog/handy_coroutine_dispatcher_extension.webp"
-        data-srcset="/images/blog/handy_coroutine_dispatcher_extension.webp, /images/blog/handy_coroutine_dispatcher_extension.webp 1.5x, /images/blog/handy_coroutine_dispatcher_extension.webp 2x"
-        data-sizes="auto"
-        alt="/images/blog/handy_coroutine_dispatcher_extension.webp"
-        title="/images/blog/handy_coroutine_dispatcher_extension.webp" /></a>
-        </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/handy_coroutine_dispatcher_extension/">A handy Kotlin coroutine extension for switching dispatcher</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-03-02">2024-03-02</time></span></div><div class="content">Imagine you have a suspend function like this:
-1 2 3 suspend fun doSomething() = withContext(Dispatchers.IO) { // body } This looks alright. Using withContext every time looks a bit verbose though. There&rsquo;s a nifty Kotlin extension on the invoke function that simplifies the code and makes it cleaner.
-1 2 3 4 5 import kotlinx.coroutines.invoke suspend fun doSomething() = Dispatchers.IO { // body } The invoke extension allows you to specify the dispatcher directly within the function call, eliminating the need for withContext.</div><div class="post-footer">
-        <a href="/posts/handy_coroutine_dispatcher_extension/">Read More</a></div>
-</article></div></div>
+</article><ul class="pagination"><li class="page-item active">
+                    <span class="page-link">
+                        <a href="/">1</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="/page/2/">2</a>
+                    </span>
+                </li></ul></div></div>
             </main><footer class="footer" onload="showAge()">
         <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
         </div>
