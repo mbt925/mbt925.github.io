@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Caching made easy - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="Caching made easy" />
+<meta property="og:description" content="In modern app development, apps are increasingly expected to be offline-first, meaning they should be able to handle operations with limited or no network connectivity. As a result, caching has become a first-class citizen in app architectures, providing multiple benefits:
+fewer network calls reduced data usage improved performance, and easier data management across app screens. In this post, I’ll discuss a common naive approach, and introduce a more scalable, reusable, and testable caching strategy." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://mbt925.github.io/posts/caching_made_easy/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-10-18T23:19:20+02:00" />
+<meta property="article:modified_time" content="2024-10-18T23:19:20+02:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Caching made easy"/>
+<meta name="twitter:description" content="In modern app development, apps are increasingly expected to be offline-first, meaning they should be able to handle operations with limited or no network connectivity. As a result, caching has become a first-class citizen in app architectures, providing multiple benefits:
+fewer network calls reduced data usage improved performance, and easier data management across app screens. In this post, I’ll discuss a common naive approach, and introduce a more scalable, reusable, and testable caching strategy."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/caching_made_easy/" /><link rel="prev" href="http://mbt925.github.io/posts/test_fixtures/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Caching made easy",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/mbt925.github.io\/posts\/caching_made_easy\/"
+        },"genre": "posts","wordcount":  1096 ,
+        "url": "http:\/\/mbt925.github.io\/posts\/caching_made_easy\/","datePublished": "2024-10-18T23:19:20+02:00","dateModified": "2024-10-18T23:19:20+02:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Caching made easy</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-18">2024-10-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1096 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/caching_made_easy.webp"
+        data-srcset="/images/blog/caching_made_easy.webp, /images/blog/caching_made_easy.webp 1.5x, /images/blog/caching_made_easy.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/caching_made_easy.webp"
+        title="/images/blog/caching_made_easy.webp" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-naive-caching-approach">The naive caching approach</a></li>
+    <li><a href="#an-opinionated-caching-approach">An opinionated caching approach</a></li>
+    <li><a href="#memory-cache">Memory cache</a></li>
+    <li><a href="#putting-it-all-together">Putting it all together</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>In modern app development, apps are increasingly expected to be offline-first,
+meaning they should be able to handle operations with limited or no network connectivity.
+As a result, caching has become a first-class citizen in app architectures,
+providing multiple benefits:</p>
+<ul>
+<li>fewer network calls</li>
+<li>reduced data usage</li>
+<li>improved performance,</li>
+<li>and easier data management across app screens.</li>
+</ul>
+<p>In this post, I’ll discuss a common naive approach, and introduce a more scalable, reusable, and testable caching strategy.</p>
+<h2 id="the-naive-caching-approach">The naive caching approach</h2>
+<p>You may wonder, “Is caching worth its own blog post?” After all,
+isn’t it just storing data locally in a variable or using something like <code>MutableStateFlow</code> in a repository?</p>
+<p>While that’s true for simple cases, caching can become more complex.
+For example, serving from the cache and then refreshing data from a remote source
+while ensuring data consistency is not trivial.</p>
+<p>Imagine a project with dozens of repositories, each managing its own caching logic.
+If you implement this logic in a basic way for every repository, you&rsquo;ll end up writing redundant code and
+creating a lot of boilerplate, not to mention the burden of testing each implementation individually.
+Wouldn&rsquo;t it be better to extract all the caching logic into a reusable class and test it thoroughly once?</p>
+<p>In smaller projects, caching is often implemented in a quick and dirty way.
+Here’s how it might look in a typical repository:</p>
+<ul>
+<li>Store data in a local variable (or something like <code>MutableStateFlow</code>).</li>
+<li>Fetch from the network when needed and update the cache.</li>
+<li>Serve cached data if it’s available, otherwise fetch from the remote source.</li>
+</ul>
+<p>This works for simple scenarios, but as the complexity grows, this approach becomes problematic.
+Each repository duplicates the caching logic and add their own touch to it,
+and this logic often ends up scattered throughout the codebase,
+making it harder to maintain and test.</p>
+<h2 id="an-opinionated-caching-approach">An opinionated caching approach</h2>
+<p>To address the aforementioned issues, we can introduce a reusable, opinionated caching mechanism that
+abstracts the common caching strategies into a separate class. This will allow us to define caching once
+and reuse it across multiple repositories.</p>
+<p>We start by creating an interface that encapsulates the most common caching strategies:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">DataAccess</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Serve from cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">fun</span> <span class="nf">get</span><span class="p">():</span> <span class="n">T</span><span class="p">?</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Serve from cache if present, otherwise fetch from remote
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">getOrFetch</span><span class="p">():</span> <span class="n">T</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Clear cache, then fetch from remote
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">clearAndFetch</span><span class="p">():</span> <span class="n">T</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Serve from cache, then fetch from remote
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">fun</span> <span class="nf">getAndFetch</span><span class="p">():</span> <span class="n">Flow</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// To allow further extension of the interface
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">companion</span> <span class="k">object</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The cache can be in-memory, disk, or a database. Below is an implementation of <code>DataAccess</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">internal</span> <span class="k">class</span> <span class="nc">DataAccessImpl</span><span class="p">&lt;</span><span class="n">Remote</span><span class="p">,</span> <span class="n">Local</span><span class="p">&gt;(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">log</span><span class="p">:</span> <span class="p">(</span><span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">get</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Local</span><span class="p">?,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">save</span><span class="p">:</span> <span class="p">(</span><span class="n">Remote</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">fetch</span><span class="p">:</span> <span class="k">suspend</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Remote</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">DataAccess</span><span class="p">&lt;</span><span class="n">Local</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">isFetching</span> <span class="p">=</span> <span class="n">AtomicBoolean</span><span class="p">(</span><span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">get</span><span class="p">()</span> <span class="p">=</span> <span class="k">get</span><span class="p">.</span><span class="n">invoke</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">getOrFetch</span><span class="p">()</span> <span class="p">=</span> <span class="n">flow</span> <span class="p">{</span> <span class="n">emitIfNotNull</span><span class="p">()</span> <span class="o">?:</span> <span class="n">fetchSaveEmit</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">flowLogging</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">first</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">clearAndFetch</span><span class="p">()</span> <span class="p">=</span> <span class="n">flow</span> <span class="p">{</span> <span class="n">fetchSaveEmit</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">onStart</span> <span class="p">{</span> <span class="n">clear</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">flowLogging</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">first</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">getAndFetch</span><span class="p">()</span> <span class="p">=</span> <span class="n">flow</span> <span class="p">{</span> <span class="n">fetchSaveEmit</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">onStart</span> <span class="p">{</span> <span class="n">emitIfNotNull</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">flowLogging</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="nc">Data</span><span class="p">&gt;</span> <span class="nf">Flow</span><span class="p">&lt;</span><span class="n">Data</span><span class="p">&gt;.</span><span class="n">flowLogging</span><span class="p">()</span> <span class="p">=</span>
+</span></span><span class="line"><span class="cl">        <span class="n">onStart</span> <span class="p">{</span> <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Starting flow&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">onEach</span> <span class="p">{</span> <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Emitting value: </span><span class="si">$it</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">onCompletion</span> <span class="p">{</span> <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Ending flow&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">FlowCollector</span><span class="p">&lt;</span><span class="n">Local</span><span class="p">&gt;.</span><span class="n">emitIfNotNull</span><span class="p">():</span> <span class="n">Local</span><span class="p">?</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Checking local data&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">get</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">?.</span><span class="n">also</span> <span class="p">{</span> <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Found local data&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">?.</span><span class="n">also</span> <span class="p">{</span> <span class="n">emit</span><span class="p">(</span><span class="k">it</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">also</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="k">it</span> <span class="o">==</span> <span class="k">null</span><span class="p">)</span> <span class="n">log</span><span class="p">(</span><span class="s2">&#34;No local data found&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">fetchAndSave</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isFetching</span><span class="p">.</span><span class="n">compareAndSet</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Fetching remote data&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">fetch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">.</span><span class="n">also</span> <span class="p">{</span> <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Saving remote value: </span><span class="si">$it</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">.</span><span class="n">also</span><span class="p">(</span><span class="n">save</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">isFetching</span><span class="p">.</span><span class="k">set</span><span class="p">(</span><span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Skip fetching remote data as a call is already running&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="p">(</span><span class="n">isFetching</span><span class="p">.</span><span class="k">get</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">delay</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="c1">// wait to ensure further calls have the updated local state
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">FlowCollector</span><span class="p">&lt;</span><span class="n">Local</span><span class="p">&gt;.</span><span class="n">fetchSaveEmit</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fetchAndSave</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emitIfNotNull</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">fun</span> <span class="nf">clear</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="p">(</span><span class="s2">&#34;Clear local data&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">save</span><span class="p">(</span><span class="k">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>This implementation uses <code>Kotlin</code>’s <code>Flow</code> to handle data streams.
+It ensures that the cache is updated when data is fetched from a remote source and also provides
+a naive concurrency handling to avoid multiple fetches happening simultaneously.</p>
+<h2 id="memory-cache">Memory cache</h2>
+<p>Let’s add a factory method to instantiate an in-memory cache:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">inline</span> <span class="k">operator</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="k">reified</span> <span class="nc">Remote</span><span class="p">&gt;</span> <span class="nf">DataAccess</span><span class="p">.</span><span class="nc">Companion</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">noinline</span> <span class="n">log</span><span class="p">:</span> <span class="p">(</span><span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span> <span class="p">=</span> <span class="p">{},</span>
+</span></span><span class="line"><span class="cl">    <span class="k">noinline</span> <span class="n">fetch</span><span class="p">:</span> <span class="k">suspend</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Remote</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">):</span> <span class="n">DataAccess</span><span class="p">&lt;</span><span class="n">Remote</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="py">data</span><span class="p">:</span> <span class="n">Remote</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">DataAccess</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">get</span> <span class="p">=</span> <span class="p">{</span> <span class="k">data</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="n">save</span> <span class="p">=</span> <span class="p">{</span> <span class="k">data</span> <span class="p">=</span> <span class="k">it</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fetch</span> <span class="p">=</span> <span class="n">fetch</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">log</span> <span class="p">=</span> <span class="n">log</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>Now that we have our caching infrastructure, let’s implement a repository that uses this approach.
+Suppose we have a Retrofit <code>BookService</code> that fetches book details.
+We can create a <code>BookRepository</code> that caches the book data in memory:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Serializable</span>
+</span></span><span class="line"><span class="cl"><span class="k">data</span> <span class="k">class</span> <span class="nc">BookDto</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">isbn</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">title</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">author</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GET</span><span class="p">(</span><span class="s2">&#34;/book/{isbn}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">suspend</span> <span class="k">fun</span> <span class="nf">getBook</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Path</span><span class="p">(</span><span class="s2">&#34;isbn&#34;</span><span class="p">)</span> <span class="n">isbn</span><span class="p">:</span> <span class="n">String</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">):</span> <span class="n">BookDto</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Here&rsquo;s a working implementation of <code>BookRepository</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">BookRepository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">getBookDataAccess</span><span class="p">(</span><span class="n">isbn</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">DataAccess</span><span class="p">&lt;</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">Book</span><span class="p">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">internal</span> <span class="k">class</span> <span class="nc">BooksRepositoryImpl</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">service</span><span class="p">:</span> <span class="n">BookService</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">val</span> <span class="py">dispatcher</span><span class="p">:</span> <span class="n">CoroutineDispatcher</span> <span class="p">=</span> <span class="nc">Dispatchers</span><span class="p">.</span><span class="n">IO</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">BookRepository</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">var</span> <span class="py">bookDataAccess</span><span class="p">:</span> <span class="n">DataAccess</span><span class="p">&lt;</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">Book</span><span class="p">&gt;&gt;?</span> <span class="p">=</span> <span class="k">null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">suspend</span> <span class="k">fun</span> <span class="nf">getBookDataAccess</span><span class="p">(</span><span class="n">isbn</span><span class="p">:</span> <span class="n">String</span><span class="p">):</span> <span class="n">DataAccess</span><span class="p">&lt;</span><span class="n">Result</span><span class="p">&lt;</span><span class="n">Book</span><span class="p">&gt;&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dispatcher</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">bookDataAccess</span> <span class="o">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">bookDataAccess</span> <span class="p">=</span> <span class="n">DataAccess</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">fetch</span> <span class="p">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">runCatching</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">service</span><span class="p">.</span><span class="n">getBook</span><span class="p">(</span><span class="n">isbn</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="n">BookDto</span><span class="o">::</span><span class="n">toDomain</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="nd">@dispatcher</span> <span class="n">bookDataAccess</span><span class="o">!!</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The <code>toDomain()</code> is an imaginary extension function that maps <code>BookDto</code> to <code>Book</code>.</p>
+<p>Finally, here’s how you would use this in a <code>ViewModel</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BookViewModel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">repository</span><span class="p">:</span> <span class="n">BookRepository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">getBook</span><span class="p">(</span><span class="n">isbn</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">viewModelScope</span><span class="p">.</span><span class="n">launch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">repository</span><span class="p">.</span><span class="n">getBookDataAccess</span><span class="p">(</span><span class="n">isbn</span><span class="p">).</span><span class="n">getOrFetch</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="conclusion">Conclusion</h2>
+<p>By abstracting the caching logic into a reusable <code>DataAccess</code> class, we reduce boilerplate, improve maintainability,
+and simplify testing. This approach scales well as your project grows and can be easily extended to
+support different caching mechanisms through the same interface.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-10-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://mbt925.github.io/posts/caching_made_easy/" data-title="Caching made easy"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://mbt925.github.io/posts/caching_made_easy/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://mbt925.github.io/posts/caching_made_easy/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://mbt925.github.io/posts/caching_made_easy/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/test_fixtures/" class="prev" rel="prev" title="Boosting test reusability with test fixtures"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Boosting test reusability with test fixtures</a></div>
+</div>
+</article></div>
+            </main><footer class="footer" onload="showAge()">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = (function () {
+                showAge()
+            });
+        </script>
+
+        <script defer language="javascript" type="text/javascript"  src="/js/age.js"></script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,9 +3,20 @@
         <title>Mohsen Biglari</title>
         <link>http://mbt925.github.io/</link>
         <description>Mohsen Biglari&#39;s personal website</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 04 Oct 2024 16:27:46 &#43;0200</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 18 Oct 2024 23:19:20 &#43;0200</lastBuildDate>
             <atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Caching made easy</title>
+    <link>http://mbt925.github.io/posts/caching_made_easy/</link>
+    <pubDate>Fri, 18 Oct 2024 23:19:20 &#43;0200</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/caching_made_easy/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/caching_made_easy.webp" referrerpolicy="no-referrer">
+            </div>In modern app development, apps are increasingly expected to be offline-first, meaning they should be able to handle operations with limited or no network connectivity. As a result, caching has become a first-class citizen in app architectures, providing multiple benefits:
+fewer network calls reduced data usage improved performance, and easier data management across app screens. In this post, I’ll discuss a common naive approach, and introduce a more scalable, reusable, and testable caching strategy.]]></description>
+</item>
+<item>
     <title>Boosting test reusability with test fixtures</title>
     <link>http://mbt925.github.io/posts/test_fixtures/</link>
     <pubDate>Fri, 04 Oct 2024 16:27:46 &#43;0200</pubDate>
