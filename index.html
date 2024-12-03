@@ -65,6 +65,20 @@
         alt="/images/profile.jpg"
         title="/images/profile.jpg" /></a></div><h1 class="home-title">Mohsen Biglari</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/mbt925" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/mbt925" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:mbt925%20at%20gmail%20dot%20com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+            <a href="/posts/overscroll_using_pull2refresh/"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/overscroll_using_pull2refresh.webp"
+        data-srcset="/images/blog/overscroll_using_pull2refresh.webp, /images/blog/overscroll_using_pull2refresh.webp 1.5x, /images/blog/overscroll_using_pull2refresh.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/overscroll_using_pull2refresh.webp"
+        title="/images/blog/overscroll_using_pull2refresh.webp" /></a>
+        </div><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/overscroll_using_pull2refresh/">Compose your way to overscroll effect with Modifier.pullRefresh</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-11-29">2024-11-29</time></span></div><div class="content">Jetpack Compose provides OverscrollEffect in androidx.compose.foundation to create customizable overscroll effects. While this works well in many scenarios, integrating it with lazy layout managers like LazyColumn can be less straightforward. A more robust alternative involves using NestedScrollConnection to create a custom overscroll modifier. However, this requires overriding methods like onPreScroll, onPostScroll, and onPreFling, which adds complexity.
+Interestingly, Modifier.pullRefresh, while designed for pull-to-refresh functionality, bears similarities with an overscroll modifier, albeit limited to one direction.</div><div class="post-footer">
+        <a href="/posts/overscroll_using_pull2refresh/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/caching_made_easy/"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -135,21 +149,6 @@ Let&rsquo;s consider the following example:
         <a href="/posts/data_flow_vs_dependency_direction/">Data flow vs. dependency direction</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-05-19">2024-05-19</time></span></div><div class="content">Imagine you&rsquo;re building a complex application with several layers: a presentation layer for user interactions, a domain layer for business rules, and a data layer for managing data. One common pitfall developers face is confusing data flow direction with dependency direction, often assuming they must be the same. But here’s a crucial question: Can dependency direction differ from data flow direction? Yes, it can, and knowing how is vital for creating a robust architecture.</div><div class="post-footer">
         <a href="/posts/data_flow_vs_dependency_direction/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
-            <a href="/posts/typealias_vs_value_class/"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/blog/typealias_vs_value_class.webp"
-        data-srcset="/images/blog/typealias_vs_value_class.webp, /images/blog/typealias_vs_value_class.webp 1.5x, /images/blog/typealias_vs_value_class.webp 2x"
-        data-sizes="auto"
-        alt="/images/blog/typealias_vs_value_class.webp"
-        title="/images/blog/typealias_vs_value_class.webp" /></a>
-        </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/typealias_vs_value_class/">Typealias vs. inline value class</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-03-26">2024-03-26</time></span></div><div class="content">Normally, Typealias and inline value class (which I&rsquo;ll refer to as value class throughout this text) are utilized for different purposes. However, developers might occasionally use one for the other. Let’s explore some examples and clarify the differences.
-Typealias kotlinlang.org does a pretty good job explaining Typealias:
-Type aliases provide alternative names for existing types. If the type name is too long you can introduce a different shorter name and use the new one instead.</div><div class="post-footer">
-        <a href="/posts/typealias_vs_value_class/">Read More</a></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
                         <a href="/">1</a>

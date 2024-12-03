@@ -3,9 +3,20 @@
         <title>Mohsen Biglari</title>
         <link>http://mbt925.github.io/</link>
         <description>Mohsen Biglari&#39;s personal website</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 18 Oct 2024 23:19:20 &#43;0200</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 29 Nov 2024 00:50:38 &#43;0100</lastBuildDate>
             <atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Compose your way to overscroll effect with Modifier.pullRefresh</title>
+    <link>http://mbt925.github.io/posts/overscroll_using_pull2refresh/</link>
+    <pubDate>Fri, 29 Nov 2024 00:50:38 &#43;0100</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/overscroll_using_pull2refresh/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/overscroll_using_pull2refresh.webp" referrerpolicy="no-referrer">
+            </div>Jetpack Compose provides OverscrollEffect in androidx.compose.foundation to create customizable overscroll effects. While this works well in many scenarios, integrating it with lazy layout managers like LazyColumn can be less straightforward. A more robust alternative involves using NestedScrollConnection to create a custom overscroll modifier. However, this requires overriding methods like onPreScroll, onPostScroll, and onPreFling, which adds complexity.
+Interestingly, Modifier.pullRefresh, while designed for pull-to-refresh functionality, bears similarities with an overscroll modifier, albeit limited to one direction.]]></description>
+</item>
+<item>
     <title>Caching made easy</title>
     <link>http://mbt925.github.io/posts/caching_made_easy/</link>
     <pubDate>Fri, 18 Oct 2024 23:19:20 &#43;0200</pubDate>
