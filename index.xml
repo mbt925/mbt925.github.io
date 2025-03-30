@@ -3,9 +3,21 @@
         <title>Mohsen Biglari</title>
         <link>http://mbt925.github.io/</link>
         <description>Mohsen Biglari&#39;s personal website</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 29 Nov 2024 00:50:38 &#43;0100</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 30 Mar 2025 19:01:27 &#43;0200</lastBuildDate>
             <atom:link href="http://mbt925.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Uniform Height LazyRow in Jetpack Compose</title>
+    <link>http://mbt925.github.io/posts/uniform_height_lazyrow/</link>
+    <pubDate>Sun, 30 Mar 2025 19:01:27 &#43;0200</pubDate>
+    <author>mbt925</author>
+    <guid>http://mbt925.github.io/posts/uniform_height_lazyrow/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/images/blog/uniform_height_lazyrow.webp" referrerpolicy="no-referrer">
+            </div>What would you do if you needed a LazyRow where all items are forced to have the same height?
+There’s no perfect solution, as enforcing uniform height means every item must be measured—negating the performance benefits of using a LazyRow in the first place. But if you&rsquo;re aware of the trade-offs, we can aim for a solution that’s readable, maintainable, and “lazy enough” for many use cases.
+Option 1: A Row with a custom SnapLayoutInfoProvider This works well when all items have the same width.]]></description>
+</item>
+<item>
     <title>Compose your way to overscroll effect with Modifier.pullRefresh</title>
     <link>http://mbt925.github.io/posts/overscroll_using_pull2refresh/</link>
     <pubDate>Fri, 29 Nov 2024 00:50:38 &#43;0100</pubDate>

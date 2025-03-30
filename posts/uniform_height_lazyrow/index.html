@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Uniform Height LazyRow in Jetpack Compose - Mohsen Biglari</title><meta name="Description" content="Mohsen Biglari&#39;s personal website"><meta property="og:title" content="Uniform Height LazyRow in Jetpack Compose" />
+<meta property="og:description" content="What would you do if you needed a LazyRow where all items are forced to have the same height?
+There’s no perfect solution, as enforcing uniform height means every item must be measured—negating the performance benefits of using a LazyRow in the first place. But if you&rsquo;re aware of the trade-offs, we can aim for a solution that’s readable, maintainable, and “lazy enough” for many use cases.
+Option 1: A Row with a custom SnapLayoutInfoProvider This works well when all items have the same width." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://mbt925.github.io/posts/uniform_height_lazyrow/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-03-30T19:01:27+02:00" />
+<meta property="article:modified_time" content="2025-03-30T19:01:27+02:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Uniform Height LazyRow in Jetpack Compose"/>
+<meta name="twitter:description" content="What would you do if you needed a LazyRow where all items are forced to have the same height?
+There’s no perfect solution, as enforcing uniform height means every item must be measured—negating the performance benefits of using a LazyRow in the first place. But if you&rsquo;re aware of the trade-offs, we can aim for a solution that’s readable, maintainable, and “lazy enough” for many use cases.
+Option 1: A Row with a custom SnapLayoutInfoProvider This works well when all items have the same width."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://mbt925.github.io/posts/uniform_height_lazyrow/" /><link rel="prev" href="http://mbt925.github.io/posts/overscroll_using_pull2refresh/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Uniform Height LazyRow in Jetpack Compose",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/mbt925.github.io\/posts\/uniform_height_lazyrow\/"
+        },"genre": "posts","wordcount":  1782 ,
+        "url": "http:\/\/mbt925.github.io\/posts\/uniform_height_lazyrow\/","datePublished": "2025-03-30T19:01:27+02:00","dateModified": "2025-03-30T19:01:27+02:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mbt925"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Blog </a><a class="menu-item" href="/allprojects/"> Projects </a><a class="menu-item" href="/educations/"> Educations </a><a class="menu-item" href="/academia/"> Academia </a><a class="menu-item" href="/publications/"> Publications </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Mohsen Biglari">Mohsen Biglari</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Blog</a><a class="menu-item" href="/allprojects/" title="">Projects</a><a class="menu-item" href="/educations/" title="">Educations</a><a class="menu-item" href="/academia/" title="">Academia</a><a class="menu-item" href="/publications/" title="">Publications</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Uniform Height LazyRow in Jetpack Compose</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-30">2025-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1782 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/uniform_height_lazyrow.webp"
+        data-srcset="/images/blog/uniform_height_lazyrow.webp, /images/blog/uniform_height_lazyrow.webp 1.5x, /images/blog/uniform_height_lazyrow.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/uniform_height_lazyrow.webp"
+        title="/images/blog/uniform_height_lazyrow.webp" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#option-1-a-row-with-a-custom-snaplayoutinfoprovider">Option 1: A <code>Row</code> with a custom <code>SnapLayoutInfoProvider</code></a></li>
+    <li><a href="#option2-a-semi-custom-lazyrow">Option2: A semi-custom <code>LazyRow</code></a>
+      <ul>
+        <li><a href="#capturing-items-via-custom-scope">Capturing Items via Custom Scope</a></li>
+        <li><a href="#implementing-uniformheightlazyrow">Implementing <code>UniformHeightLazyRow</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#result">Result</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>What would you do if you needed a <code>LazyRow</code> where all items are forced to have the same height?</p>
+<p>There’s no perfect solution, as enforcing uniform height means every item must be measured—negating the performance benefits of using a <code>LazyRow</code> in the first place.
+But if you&rsquo;re aware of the trade-offs, we can aim for a solution that’s readable, maintainable, and “lazy enough” for many use cases.</p>
+<h2 id="option-1-a-row-with-a-custom-snaplayoutinfoprovider">Option 1: A <code>Row</code> with a custom <code>SnapLayoutInfoProvider</code></h2>
+<p>This works well when all items have the same width.
+For example, <a href="https://cs.android.com/androidx/platform/frameworks/support/&#43;/androidx-main:compose/foundation/foundation/integration-tests/foundation-demos/src/main/java/androidx/compose/foundation/demos/snapping/RowSnapLayoutInfoProvider.kt" target="_blank" rel="noopener noreffer ">this implementation</a> provides snapping behavior similar to that of a <code>LazyRow</code>.</p>
+<p>However, supporting items with varying widths would require a custom <code>LazyListLayoutInfo</code> to track each item&rsquo;s index and size.
+At that point, you’re essentially re-implementing <code>LazyRow</code> from scratch—which is hard to justify in terms of maintainability.</p>
+<h2 id="option2-a-semi-custom-lazyrow">Option2: A semi-custom <code>LazyRow</code></h2>
+<p>What if we mimicked <code>LazyRow</code>&rsquo;s measurement pass, calculated the maximum height of all items up front, and then used that to set the row’s height?</p>
+<p>Yes, this breaks the &ldquo;lazy&rdquo; aspect, but we’ll keep calling it <code>UniformHeightLazyRow</code> for simplicity.</p>
+<p>Here&rsquo;s what a standard <code>LazyRow</code> looks like:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Preview</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">NormalLazyRowPreview</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Theme</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">items</span> <span class="p">=</span> <span class="n">persistentListOf</span><span class="p">(</span><span class="s2">&#34;Item1&#34;</span><span class="p">,</span> <span class="s2">&#34;Item2 but very very very long&#34;</span><span class="p">,</span> <span class="s2">&#34;Item 3 medium long&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">contentPadding</span> <span class="p">=</span> <span class="n">PaddingValues</span><span class="p">(</span><span class="m">10.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">horizontalArrangement</span> <span class="p">=</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">spacedBy</span><span class="p">(</span><span class="m">5.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">stickyHeader</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="n">Modifier</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">background</span><span class="p">(</span><span class="nc">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Sticky Header&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">item</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="n">Modifier</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">background</span><span class="p">(</span><span class="nc">Color</span><span class="p">.</span><span class="n">Yellow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Single item before other items&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">itemsIndexed</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="n">Modifier</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">background</span><span class="p">(</span><span class="nc">Color</span><span class="p">.</span><span class="n">Yellow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">fillParentMaxWidth</span><span class="p">(</span><span class="m">0.1f</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="si">$index</span><span class="s2">: </span><span class="si">$item</span><span class="s2">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p><code>Modifier.fillParentMaxHeight()</code> only has an effect when the <code>LazyRow</code> has a fixed height, which is not the case here.</p>
+</blockquote>
+<a class="lightgallery" href="/images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp" title="/images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp" data-thumbnail="/images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp"
+            data-srcset="/images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp, /images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp 1.5x, /images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp 2x"
+            data-sizes="auto"
+            alt="/images/blog/uniform_height_lazyrow/normal_lazyrow_preview.webp" />
+    </a>
+<h3 id="capturing-items-via-custom-scope">Capturing Items via Custom Scope</h3>
+<p><code>LazyRow</code> uses <code>LazyListScope</code> to define its content:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">LazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">content</span><span class="p">:</span> <span class="nc">LazyListScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="n">Unit</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">interface</span> <span class="nc">LazyListScope</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Adds a single item.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">fun</span> <span class="nf">item</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="n">Unit</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Adds a [count] of items.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">fun</span> <span class="nf">items</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span><span class="p">:</span> <span class="p">((</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">)?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span><span class="p">:</span> <span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="p">{</span> <span class="k">null</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="n">itemContent</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Adds a sticky header item
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">fun</span> <span class="nf">stickyHeader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="n">Unit</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>To build our version, we need a similar interface—except our item content will also accept a <code>Modifier</code> parameter that we’ll use later to enforce height.</p>
+<p>Here’s the core of <code>UniformHeightLazyListScope</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">UniformHeightLazyListScope</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">data</span> <span class="k">class</span> <span class="nc">ItemEntry</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">?,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">contentType</span><span class="p">:</span> <span class="n">Any</span><span class="p">?,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.(</span><span class="n">Modifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Accumulate each item in the order they&#39;re added
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">val</span> <span class="py">items</span> <span class="p">=</span> <span class="n">mutableListOf</span><span class="p">&lt;</span><span class="n">ItemEntry</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="py">stickyHeader</span><span class="p">:</span> <span class="n">ItemEntry</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">item</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.(</span><span class="n">Modifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">items</span> <span class="o">+=</span> <span class="n">ItemEntry</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">contentType</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">items</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span><span class="p">:</span> <span class="p">((</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">)?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span><span class="p">:</span> <span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="p">{</span> <span class="k">null</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="n">itemContent</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">repeat</span><span class="p">(</span><span class="n">count</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">items</span> <span class="o">+=</span> <span class="n">ItemEntry</span><span class="p">(</span><span class="n">key</span><span class="o">?.</span><span class="n">invoke</span><span class="p">(</span><span class="n">index</span><span class="p">),</span> <span class="n">contentType</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">index</span><span class="p">))</span> <span class="p">{</span> <span class="n">modifier</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">itemContent</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">modifier</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">inline</span> <span class="k">fun</span> <span class="p">&lt;</span><span class="nc">T</span><span class="p">&gt;</span> <span class="nf">itemsIndexed</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">noinline</span> <span class="n">key</span><span class="p">:</span> <span class="p">((</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">)?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">crossinline</span> <span class="n">contentType</span><span class="p">:</span> <span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="k">null</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="k">crossinline</span> <span class="n">itemContent</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.(</span><span class="n">index</span><span class="p">:</span> <span class="n">Int</span><span class="p">,</span> <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">=</span> <span class="n">items</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">count</span> <span class="p">=</span> <span class="n">items</span><span class="p">.</span><span class="n">size</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">!=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span><span class="p">:</span> <span class="n">Int</span> <span class="o">-&gt;</span> <span class="n">key</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">}</span> <span class="k">else</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span> <span class="p">=</span> <span class="p">{</span> <span class="n">index</span> <span class="o">-&gt;</span> <span class="n">contentType</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span> <span class="n">index</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">itemContent</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">modifier</span><span class="p">,</span> <span class="n">items</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">fun</span> <span class="nf">stickyHeader</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">contentType</span><span class="p">:</span> <span class="n">Any</span><span class="p">?</span> <span class="p">=</span> <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="nc">LazyItemScope</span><span class="p">.(</span><span class="n">Modifier</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stickyHeader</span> <span class="p">=</span> <span class="n">ItemEntry</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">contentType</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="implementing-uniformheightlazyrow">Implementing <code>UniformHeightLazyRow</code></h3>
+<p>We now define a <code>UniformHeightLazyRow</code> with the same parameters as a normal <code>LazyRow</code>, but with a custom content scope.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">UniformHeightLazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="p">=</span> <span class="n">Modifier</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span><span class="p">:</span> <span class="n">LazyListState</span> <span class="p">=</span> <span class="n">rememberLazyListState</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contentPadding</span><span class="p">:</span> <span class="n">PaddingValues</span> <span class="p">=</span> <span class="n">PaddingValues</span><span class="p">(</span><span class="m">0.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reverseLayout</span><span class="p">:</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">horizontalArrangement</span><span class="p">:</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">Horizontal</span> <span class="p">=</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(!</span><span class="n">reverseLayout</span><span class="p">)</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">Start</span> <span class="k">else</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">End</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">verticalAlignment</span><span class="p">:</span> <span class="nc">Alignment</span><span class="p">.</span><span class="n">Vertical</span> <span class="p">=</span> <span class="nc">Alignment</span><span class="p">.</span><span class="n">Top</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flingBehavior</span><span class="p">:</span> <span class="n">FlingBehavior</span> <span class="p">=</span> <span class="nc">ScrollableDefaults</span><span class="p">.</span><span class="n">flingBehavior</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">userScrollEnabled</span><span class="p">:</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">content</span><span class="p">:</span> <span class="nc">UniformHeightLazyListScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Using <code>SubcomposeLayout</code>, we render the contents once just to measure their heights, identify the tallest one, and apply that height to the final <code>LazyRow</code>.</p>
+<p>Here’s how we measure the height:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">density</span> <span class="p">=</span> <span class="nc">LocalDensity</span><span class="p">.</span><span class="n">current</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">layoutDirection</span> <span class="p">=</span> <span class="nc">LocalLayoutDirection</span><span class="p">.</span><span class="n">current</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">SubcomposeLayout</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span> <span class="p">{</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">leftPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateLeftPadding</span><span class="p">(</span><span class="n">layoutDirection</span><span class="p">).</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">rightPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateRightPadding</span><span class="p">(</span><span class="n">layoutDirection</span><span class="p">).</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">totalHorizontalPaddingPx</span> <span class="p">=</span> <span class="n">leftPadPx</span> <span class="p">+</span> <span class="n">rightPadPx</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">topPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateTopPadding</span><span class="p">().</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">bottomPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateBottomPadding</span><span class="p">().</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">totalVerticalPaddingPx</span> <span class="p">=</span> <span class="n">topPadPx</span> <span class="p">+</span> <span class="n">bottomPadPx</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">capturingScope</span> <span class="p">=</span> <span class="n">UniformHeightLazyListScope</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">capturingScope</span><span class="p">.</span><span class="n">content</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Measure children as if they have (maxWidth - padding) available
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">val</span> <span class="py">measureMaxWidth</span> <span class="p">=</span> <span class="p">(</span><span class="n">constraints</span><span class="p">.</span><span class="n">maxWidth</span> <span class="p">-</span> <span class="n">totalHorizontalPaddingPx</span><span class="p">).</span><span class="n">coerceAtLeast</span><span class="p">(</span><span class="m">0f</span><span class="p">).</span><span class="n">toInt</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">itemConstraints</span> <span class="p">=</span> <span class="n">constraints</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maxWidth</span> <span class="p">=</span> <span class="n">measureMaxWidth</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">minWidth</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">placeables</span> <span class="p">=</span> <span class="n">subcompose</span><span class="p">(</span><span class="s2">&#34;preMeasure&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">lazyItemScope</span> <span class="p">???</span>
+</span></span><span class="line"><span class="cl">        <span class="n">capturingScope</span><span class="p">.</span><span class="n">stickyHeader</span><span class="o">?.</span><span class="n">content</span><span class="o">?.</span><span class="n">invoke</span><span class="p">(</span><span class="n">lazyItemScope</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">((</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">itemContent</span><span class="p">)</span> <span class="k">in</span> <span class="n">capturingScope</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">itemContent</span><span class="p">(</span><span class="n">lazyItemScope</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}.</span><span class="n">map</span> <span class="p">{</span> <span class="n">measurable</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">measurable</span><span class="p">.</span><span class="n">measure</span><span class="p">(</span><span class="n">itemConstraints</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Find the tallest
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">val</span> <span class="py">maxHeightPx</span> <span class="p">=</span> <span class="n">placeables</span><span class="p">.</span><span class="n">maxOfOrNull</span> <span class="p">{</span> <span class="k">it</span><span class="p">.</span><span class="n">height</span> <span class="p">}</span> <span class="o">?:</span> <span class="n">constraints</span><span class="p">.</span><span class="n">minHeight</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">maxHeightDp</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">maxHeightPx</span><span class="p">.</span><span class="n">toDp</span><span class="p">()</span> <span class="p">+</span> <span class="n">totalVerticalPaddingPx</span><span class="p">.</span><span class="n">toDp</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Ah, an instance of <code>LazyItemScope</code> needs to be passed to the items. Let&rsquo;s do a quick implementation of it.</p>
+<p>Since we explicitly measure and enforce the row’s height, <code>fillParentMaxHeight</code> can be ignored.
+Similarly, <code>fillParentMaxSize</code> will only affect width.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">private</span> <span class="k">class</span> <span class="nc">UniformHeightLazyItemScope</span> <span class="p">:</span> <span class="n">LazyItemScope</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">Modifier</span><span class="p">.</span><span class="n">fillParentMaxHeight</span><span class="p">(</span><span class="n">fraction</span><span class="p">:</span> <span class="n">Float</span><span class="p">):</span> <span class="n">Modifier</span> <span class="p">=</span> <span class="k">this</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">Modifier</span><span class="p">.</span><span class="n">fillParentMaxSize</span><span class="p">(</span><span class="n">fraction</span><span class="p">:</span> <span class="n">Float</span><span class="p">):</span> <span class="n">Modifier</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">fillMaxWidth</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">Modifier</span><span class="p">.</span><span class="n">fillParentMaxWidth</span><span class="p">(</span><span class="n">fraction</span><span class="p">:</span> <span class="n">Float</span><span class="p">):</span> <span class="n">Modifier</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">fillMaxWidth</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Let&rsquo;s repeat the previous code with a working instance of <code>LazyItemScope</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">density</span> <span class="p">=</span> <span class="nc">LocalDensity</span><span class="p">.</span><span class="n">current</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="py">layoutDirection</span> <span class="p">=</span> <span class="nc">LocalLayoutDirection</span><span class="p">.</span><span class="n">current</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">SubcomposeLayout</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span> <span class="p">{</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">leftPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateLeftPadding</span><span class="p">(</span><span class="n">layoutDirection</span><span class="p">).</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">rightPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateRightPadding</span><span class="p">(</span><span class="n">layoutDirection</span><span class="p">).</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">totalHorizontalPaddingPx</span> <span class="p">=</span> <span class="n">leftPadPx</span> <span class="p">+</span> <span class="n">rightPadPx</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">topPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateTopPadding</span><span class="p">().</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">bottomPadPx</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span><span class="p">.</span><span class="n">calculateBottomPadding</span><span class="p">().</span><span class="n">toPx</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">totalVerticalPaddingPx</span> <span class="p">=</span> <span class="n">topPadPx</span> <span class="p">+</span> <span class="n">bottomPadPx</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">capturingScope</span> <span class="p">=</span> <span class="n">UniformHeightLazyListScope</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">capturingScope</span><span class="p">.</span><span class="n">content</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Measure children as if they have (maxWidth - padding) available
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">val</span> <span class="py">measureMaxWidth</span> <span class="p">=</span> <span class="p">(</span><span class="n">constraints</span><span class="p">.</span><span class="n">maxWidth</span> <span class="p">-</span> <span class="n">totalHorizontalPaddingPx</span><span class="p">).</span><span class="n">coerceAtLeast</span><span class="p">(</span><span class="m">0f</span><span class="p">).</span><span class="n">toInt</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">itemConstraints</span> <span class="p">=</span> <span class="n">constraints</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maxWidth</span> <span class="p">=</span> <span class="n">measureMaxWidth</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">minWidth</span> <span class="p">=</span> <span class="m">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">placeables</span> <span class="p">=</span> <span class="n">subcompose</span><span class="p">(</span><span class="s2">&#34;preMeasure&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">lazyItemScope</span> <span class="p">=</span> <span class="n">UniformHeightLazyItemScope</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">capturingScope</span><span class="p">.</span><span class="n">stickyHeader</span><span class="o">?.</span><span class="n">content</span><span class="o">?.</span><span class="n">invoke</span><span class="p">(</span><span class="n">lazyItemScope</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">((</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">itemContent</span><span class="p">)</span> <span class="k">in</span> <span class="n">capturingScope</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">itemContent</span><span class="p">(</span><span class="n">lazyItemScope</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}.</span><span class="n">map</span> <span class="p">{</span> <span class="n">measurable</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">measurable</span><span class="p">.</span><span class="n">measure</span><span class="p">(</span><span class="n">itemConstraints</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Find the tallest
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">val</span> <span class="py">maxHeightPx</span> <span class="p">=</span> <span class="n">placeables</span><span class="p">.</span><span class="n">maxOfOrNull</span> <span class="p">{</span> <span class="k">it</span><span class="p">.</span><span class="n">height</span> <span class="p">}</span> <span class="o">?:</span> <span class="n">constraints</span><span class="p">.</span><span class="n">minHeight</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">maxHeightDp</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">maxHeightPx</span><span class="p">.</span><span class="n">toDp</span><span class="p">()</span> <span class="p">+</span> <span class="n">totalVerticalPaddingPx</span><span class="p">.</span><span class="n">toDp</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Once we have the tallest item&rsquo;s height, we apply it directly to the inner <code>LazyRow</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">lazyRowMeasurable</span> <span class="p">=</span> <span class="n">subcompose</span><span class="p">(</span><span class="s2">&#34;lazyRow&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">height</span><span class="p">(</span><span class="n">maxHeightDp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">state</span> <span class="p">=</span> <span class="n">state</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">contentPadding</span> <span class="p">=</span> <span class="n">contentPadding</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">horizontalArrangement</span> <span class="p">=</span> <span class="n">horizontalArrangement</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">verticalAlignment</span> <span class="p">=</span> <span class="n">verticalAlignment</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flingBehavior</span> <span class="p">=</span> <span class="n">flingBehavior</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">reverseLayout</span> <span class="p">=</span> <span class="n">reverseLayout</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">userScrollEnabled</span> <span class="p">=</span> <span class="n">userScrollEnabled</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p><code>Modifier.fillParentMaxHeight()</code> now works, because the <code>LazyRow</code> has a fixed height.</p>
+</blockquote>
+<p>We can pass <code>Modifier.fillParentMaxHeight()</code> to items via the content lambda: <code>content: @Composable LazyItemScope.(Modifier) -&gt; Unit,</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">fun</span> <span class="nf">UniformHeightLazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="p">=</span> <span class="n">Modifier</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span><span class="p">:</span> <span class="n">LazyListState</span> <span class="p">=</span> <span class="n">rememberLazyListState</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">contentPadding</span><span class="p">:</span> <span class="n">PaddingValues</span> <span class="p">=</span> <span class="n">PaddingValues</span><span class="p">(</span><span class="m">0.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reverseLayout</span><span class="p">:</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">horizontalArrangement</span><span class="p">:</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">Horizontal</span> <span class="p">=</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(!</span><span class="n">reverseLayout</span><span class="p">)</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">Start</span> <span class="k">else</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">End</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">verticalAlignment</span><span class="p">:</span> <span class="nc">Alignment</span><span class="p">.</span><span class="n">Vertical</span> <span class="p">=</span> <span class="nc">Alignment</span><span class="p">.</span><span class="n">Top</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flingBehavior</span><span class="p">:</span> <span class="n">FlingBehavior</span> <span class="p">=</span> <span class="nc">ScrollableDefaults</span><span class="p">.</span><span class="n">flingBehavior</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">userScrollEnabled</span><span class="p">:</span> <span class="n">Boolean</span> <span class="p">=</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">content</span><span class="p">:</span> <span class="nc">UniformHeightLazyListScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="n">Unit</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">SubcomposeLayout</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span> <span class="p">{</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Find the tallest
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">val</span> <span class="py">maxHeightPx</span> <span class="p">=</span> <span class="n">placeables</span><span class="p">.</span><span class="n">maxOfOrNull</span> <span class="p">{</span> <span class="k">it</span><span class="p">.</span><span class="n">height</span> <span class="p">}</span> <span class="o">?:</span> <span class="n">constraints</span><span class="p">.</span><span class="n">minHeight</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">maxHeightDp</span> <span class="p">=</span> <span class="n">with</span><span class="p">(</span><span class="n">density</span><span class="p">)</span> <span class="p">{</span> <span class="n">maxHeightPx</span><span class="p">.</span><span class="n">toDp</span><span class="p">()</span> <span class="p">+</span> <span class="n">totalVerticalPaddingPx</span><span class="p">.</span><span class="n">toDp</span><span class="p">()</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">lazyRowMeasurable</span> <span class="p">=</span> <span class="n">subcompose</span><span class="p">(</span><span class="s2">&#34;lazyRow&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">height</span><span class="p">(</span><span class="n">maxHeightDp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="o">..</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">capturingScope</span><span class="p">.</span><span class="n">stickyHeader</span><span class="o">?.</span><span class="n">let</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">stickyHeader</span><span class="p">(</span><span class="k">it</span><span class="p">.</span><span class="n">key</span><span class="p">,</span> <span class="k">it</span><span class="p">.</span><span class="n">contentType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">it</span><span class="p">.</span><span class="n">content</span><span class="p">(</span><span class="k">this</span><span class="nd">@stickyHeader</span><span class="p">,</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">fillParentMaxHeight</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">contentType</span><span class="p">,</span> <span class="n">itemContent</span><span class="p">)</span> <span class="k">in</span> <span class="n">capturingScope</span><span class="p">.</span><span class="n">items</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">item</span><span class="p">(</span><span class="n">key</span> <span class="p">=</span> <span class="n">key</span><span class="p">,</span> <span class="n">contentType</span> <span class="p">=</span> <span class="n">contentType</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">itemContent</span><span class="p">(</span><span class="nc">Modifier</span><span class="p">.</span><span class="n">fillParentMaxHeight</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}.</span><span class="n">first</span><span class="p">()</span> <span class="c1">// &#34;lazyRow&#34; is the only element
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Measure that LazyRow with the original constraints
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">val</span> <span class="py">lazyRowPlaceable</span> <span class="p">=</span> <span class="n">lazyRowMeasurable</span><span class="p">.</span><span class="n">measure</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Lay out the LazyRow in the space we have
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">layout</span><span class="p">(</span><span class="n">lazyRowPlaceable</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">lazyRowPlaceable</span><span class="p">.</span><span class="n">height</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lazyRowPlaceable</span><span class="p">.</span><span class="n">placeRelative</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The API usage is nearly identical to <code>LazyRow</code>, except for the added <code>modifier</code> parameter in the item content lambdas:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Preview</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">UniformHeightLazyRowPreview</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Theme</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">val</span> <span class="py">items</span> <span class="p">=</span> <span class="n">persistentListOf</span><span class="p">(</span><span class="s2">&#34;Item1&#34;</span><span class="p">,</span> <span class="s2">&#34;Item2 but very very very long&#34;</span><span class="p">,</span> <span class="s2">&#34;Item 3 medium long&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">UniformHeightLazyRow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">contentPadding</span> <span class="p">=</span> <span class="n">PaddingValues</span><span class="p">(</span><span class="m">10.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">horizontalArrangement</span> <span class="p">=</span> <span class="nc">Arrangement</span><span class="p">.</span><span class="n">spacedBy</span><span class="p">(</span><span class="m">5.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">stickyHeader</span> <span class="p">{</span> <span class="n">modifier</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="n">modifier</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">background</span><span class="p">(</span><span class="nc">Color</span><span class="p">.</span><span class="n">Green</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Sticky Header&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">item</span> <span class="p">{</span> <span class="n">modifier</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="n">modifier</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">background</span><span class="p">(</span><span class="nc">Color</span><span class="p">.</span><span class="n">Yellow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">width</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Single item before other items&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">itemsIndexed</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span><span class="p">,</span> <span class="n">modifier</span><span class="p">,</span> <span class="n">item</span> <span class="o">-&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="n">modifier</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">background</span><span class="p">(</span><span class="nc">Color</span><span class="p">.</span><span class="n">Yellow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">.</span><span class="n">fillParentMaxWidth</span><span class="p">(</span><span class="m">0.1f</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;</span><span class="si">$index</span><span class="s2">: </span><span class="si">$item</span><span class="s2">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="result">Result</h2>
+<p>🎉 We now have a working <code>UniformHeightLazyRow</code>:</p>
+<a class="lightgallery" href="/images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp" title="/images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp" data-thumbnail="/images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp"
+            data-srcset="/images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp, /images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp 1.5x, /images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp 2x"
+            data-sizes="auto"
+            alt="/images/blog/uniform_height_lazyrow/uniform_height_lazyrow_preview.webp" />
+    </a>
+<p>This component isn&rsquo;t optimized for long lists (and shouldn&rsquo;t be used as such).
+If your dataset is small enough to work with a regular <code>Row</code>, this approach should work just as well—with the added bonus of supporting <code>LazyRow</code>-like scrolling and snapping behavior.</p>
+<p>And the best part? We didn’t re-implement <code>LazyRow</code>. We simply wrapped it with some measurement logic and a couple of simple interfaces.
+That means your code stays relatively future-proof if <code>LazyRow</code> evolves over time.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-03-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://mbt925.github.io/posts/uniform_height_lazyrow/" data-title="Uniform Height LazyRow in Jetpack Compose"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://mbt925.github.io/posts/uniform_height_lazyrow/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="http://mbt925.github.io/posts/uniform_height_lazyrow/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Reddit" data-sharer="reddit" data-url="http://mbt925.github.io/posts/uniform_height_lazyrow/"><i class="fab fa-reddit fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/overscroll_using_pull2refresh/" class="prev" rel="prev" title="Compose your way to overscroll effect with Modifier.pullRefresh"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Compose your way to overscroll effect with Modifier.pullRefresh</a></div>
+</div>
+</article></div>
+            </main><footer class="footer" onload="showAge()">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2025</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        </div>
+
+        <script type="text/javascript">
+            window.onload = (function () {
+                showAge()
+            });
+        </script>
+
+        <script defer language="javascript" type="text/javascript"  src="/js/age.js"></script>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":30},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -65,6 +65,21 @@
         alt="/images/profile.jpg"
         title="/images/profile.jpg" /></a></div><h1 class="home-title">Mohsen Biglari</h1><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/mbt925" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/mbt925" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:mbt925%20at%20gmail%20dot%20com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+            <a href="/posts/uniform_height_lazyrow/"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/blog/uniform_height_lazyrow.webp"
+        data-srcset="/images/blog/uniform_height_lazyrow.webp, /images/blog/uniform_height_lazyrow.webp 1.5x, /images/blog/uniform_height_lazyrow.webp 2x"
+        data-sizes="auto"
+        alt="/images/blog/uniform_height_lazyrow.webp"
+        title="/images/blog/uniform_height_lazyrow.webp" /></a>
+        </div><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/uniform_height_lazyrow/">Uniform Height LazyRow in Jetpack Compose</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2025-03-30">2025-03-30</time></span></div><div class="content">What would you do if you needed a LazyRow where all items are forced to have the same height?
+There’s no perfect solution, as enforcing uniform height means every item must be measured—negating the performance benefits of using a LazyRow in the first place. But if you&rsquo;re aware of the trade-offs, we can aim for a solution that’s readable, maintainable, and “lazy enough” for many use cases.
+Option 1: A Row with a custom SnapLayoutInfoProvider This works well when all items have the same width.</div><div class="post-footer">
+        <a href="/posts/uniform_height_lazyrow/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/posts/overscroll_using_pull2refresh/"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -136,19 +151,6 @@ Installing SDKMAN! Getting SDKMAN! up and running on a UNIX-based system is stra
 Let&rsquo;s consider the following example:
 1 2 3 4 5 data class Data(val a: Int, val b: Int) interface Repository { fun getData(): Data?</div><div class="post-footer">
         <a href="/posts/error_handling_in_domain_layer/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
-            <a href="/posts/data_flow_vs_dependency_direction/"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/images/blog/data_flow_vs_dependency_direction.webp"
-        data-srcset="/images/blog/data_flow_vs_dependency_direction.webp, /images/blog/data_flow_vs_dependency_direction.webp 1.5x, /images/blog/data_flow_vs_dependency_direction.webp 2x"
-        data-sizes="auto"
-        alt="/images/blog/data_flow_vs_dependency_direction.webp"
-        title="/images/blog/data_flow_vs_dependency_direction.webp" /></a>
-        </div><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/data_flow_vs_dependency_direction/">Data flow vs. dependency direction</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mbt925</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-05-19">2024-05-19</time></span></div><div class="content">Imagine you&rsquo;re building a complex application with several layers: a presentation layer for user interactions, a domain layer for business rules, and a data layer for managing data. One common pitfall developers face is confusing data flow direction with dependency direction, often assuming they must be the same. But here’s a crucial question: Can dependency direction differ from data flow direction? Yes, it can, and knowing how is vital for creating a robust architecture.</div><div class="post-footer">
-        <a href="/posts/data_flow_vs_dependency_direction/">Read More</a></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -159,7 +161,7 @@ Let&rsquo;s consider the following example:
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer" onload="showAge()">
-        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2025</span>&nbsp;|&nbsp;<span class="license">Mohsen Biglari</span></div>
         </div>
 
         <script type="text/javascript">
