@@ -6,14 +6,21 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Apr 2024 00:01:02 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 00:01:02 +0200</lastBuildDate>
     <atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Persian Calendar Watch Faces</title>
+      <link>http://mbt925.github.io/projects/wear_persian_calendar_watch_faces/</link>
+      <pubDate>Fri, 23 Oct 2026 00:01:02 +0200</pubDate>
+      <guid>http://mbt925.github.io/projects/wear_persian_calendar_watch_faces/</guid>
+      <description>Persian Calendar Watch Faces is a collection of watch faces for Wear OS inspired by Persian art and architecture, from the reliefs of Persepolis to the tilework of Isfahan. Each face shows the current Persian date and comes with three color themes and several date styles, from just the day to the full date.&#xA;The faces are built with Watch Face Format, so they are lightweight and battery friendly. They work on Wear OS 5 and newer.</description>
+    </item>
     <item>
       <title>Complications Set</title>
       <link>http://mbt925.github.io/projects/complications_set/</link>
       <pubDate>Mon, 01 Apr 2024 00:01:02 +0100</pubDate>
       <guid>http://mbt925.github.io/projects/complications_set/</guid>
-      <description>&#xA;Installing numerous apps solely to access various complications can be tedious. Complication Sets offers a collection of convenient complications for your Wear OS smartwatch.&#xA;If you require a specific complication, feel free to let me know.&#xA;🔗 Google Play&#xA;Privacy Policy Complication Sets app doesn&amp;rsquo;t collect any user data. All data are hosted locally on the device.&#xA;Screenshots </description>
+      <description>Installing numerous apps solely to access various complications can be tedious. Complications Set offers a collection of more than twenty complications and two tiles for your Wear OS smartwatch, so a single install can fill every slot on your watch face: the date, your battery levels, your volume, quick shortcuts, and a few just-for-fun ones.&#xA;If you require a specific complication, feel free to let me know.&#xA;🔗 Google Play</description>
     </item>
     <item>
       <title>Weasy Launcher</title>
