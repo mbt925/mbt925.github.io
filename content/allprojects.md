@@ -4,6 +4,11 @@ date: 2022-01-01T14:21:52+01:00
 draft: false
 ---
 
+<style>
+/* icons have different sizes and aspect ratios: show them all in the same 60x60 box */
+.content h3 img { width: 60px; height: 60px; object-fit: contain; vertical-align: middle; }
+</style>
+
 ### ![babynurse icon](/images/projects/babynurse/icon.png) [BabyNurse | مادریار](/projects/babynurse)
 An Android-only baby care app. With Babynurse, parents would have something close to a nurse.
 
@@ -21,6 +26,9 @@ A compact persian calendar for Wear OS smartwatches.
 
 ### ![complications_set_icon](/images/projects/complications_set/icon.png) [Complications Set](/projects/complications_set)
 A set of handy complications for Wear OS smartwatches.
+
+### ![persian calendar watch faces icon](/images/projects/wear_persian_calendar_watch_faces/icon.png) [Persian Calendar Watch Faces](/projects/wear_persian_calendar_watch_faces)
+A collection of Persian-art watch faces with the Persian date for Wear OS smartwatches.
 
 ### ![yolo icon](/images/projects/yolo.png) Realtime Multi Object Detector
 A Java app which processes a 800x600 image in 8ms using a Quadro P5000 GPU. The app is developed using DeepLearning4J with transfer learning on pre-trained Tiny-YOLO v2. A custom dataset has been prepared for the system.
