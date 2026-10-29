@@ -6,8 +6,15 @@
     <description>Recent content in Projects on Mohsen Biglari</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Oct 2026 00:01:02 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 29 Oct 2026 00:01:02 +0200</lastBuildDate>
     <atom:link href="http://mbt925.github.io/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Game Watch Faces</title>
+      <link>http://mbt925.github.io/projects/game_watch_faces/</link>
+      <pubDate>Thu, 29 Oct 2026 00:01:02 +0200</pubDate>
+      <guid>http://mbt925.github.io/projects/game_watch_faces/</guid>
+      <description>Game Watch Faces is a collection of retro pixel-art watch faces for Wear OS, each one inspired by a classic arcade game, from Pong and Pac-Man to Tetris. The game plays itself on your wrist while the clock is part of the action: the time is the score, the stack of blocks or the shields of the invaders. Date, battery and a score are always at hand, and the ambient mode keeps the time, date and battery.</description>
+    </item>
     <item>
       <title>Persian Calendar Watch Faces</title>
       <link>http://mbt925.github.io/projects/wear_persian_calendar_watch_faces/</link>
