@@ -30,6 +30,9 @@ A set of handy complications for Wear OS smartwatches.
 ### ![persian calendar watch faces icon](/images/projects/wear_persian_calendar_watch_faces/icon.png) [Persian Calendar Watch Faces](/projects/wear_persian_calendar_watch_faces)
 A collection of Persian-art watch faces with the Persian date for Wear OS smartwatches.
 
+### ![game watch faces icon](/images/projects/game_watch_faces/icon.png) [Game Watch Faces](/projects/game_watch_faces)
+Retro pixel-art game watch faces, from Pong to Tetris, for Wear OS smartwatches.
+
 ### ![yolo icon](/images/projects/yolo.png) Realtime Multi Object Detector
 A Java app which processes a 800x600 image in 8ms using a Quadro P5000 GPU. The app is developed using DeepLearning4J with transfer learning on pre-trained Tiny-YOLO v2. A custom dataset has been prepared for the system.
 
